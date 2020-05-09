@@ -1,6 +1,5 @@
-package nz.co.seclib.dbroker.sysinfo
+package nz.co.seclib.dbroker.ui.sysinfo
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.CoroutineScope

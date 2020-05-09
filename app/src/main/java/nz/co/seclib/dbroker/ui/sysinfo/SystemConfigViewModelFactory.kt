@@ -1,11 +1,10 @@
-package nz.co.seclib.dbroker.sysinfo
+package nz.co.seclib.dbroker.ui.sysinfo
 
 import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import nz.co.seclib.dbroker.data.DBrokerRoomDatabase
 import nz.co.seclib.dbroker.data.SystemConfigRepository
-import nz.co.seclib.dbroker.data.TradeLogRepository
 
 class SystemConfigViewModelFactory(var application: Application): ViewModelProvider.Factory  {
     @Suppress("UNCHECKED_CAST")

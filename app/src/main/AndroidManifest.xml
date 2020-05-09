@@ -11,14 +11,12 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".sysinfo.SystemConfigActivity"></activity>
+        android:theme="@style/Theme.MyApp">
+        <activity android:name="nz.co.seclib.dbroker.ui.sysinfo.SystemConfigActivity"
+            android:label="System"></activity>
         <activity android:name=".ui.stockinfo.TradeLogActivity"
-            android:label="Stock Trades"
+            android:label="Trades"
             android:launchMode="singleTop">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.stockinfo.StockInfoActivity" />
         </activity>
         <activity
             android:name=".ui.login.LoginActivity"
@@ -31,35 +29,19 @@
         </activity>
         <activity
             android:name=".ui.stockinfo.StockInfoActivity"
-            android:label="Stock Information"
+            android:label="Stock"
             android:launchMode="singleTop">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.stockinfo.TrendChartsActivity" />
         </activity>
-        <activity
-            android:name=".ui.stockinfo.TrendChartsActivity"
-            android:label="Stock Charts"
-            android:launchMode="singleTop">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.login.LoginActivity" />
-        </activity>
+
         <activity
             android:name=".ui.stockinfo.SearchActivity"
-            android:label="Stock Search"
+            android:label="Search"
             android:launchMode="singleTop">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.stockinfo.SelectedStocksActivity" />
         </activity>
         <activity
             android:name=".ui.stockinfo.SelectedStocksActivity"
-            android:label="Selected Stocks"
+            android:label="Selected"
             android:launchMode="singleTop">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.login.LoginActivity" />
         </activity>
     </application>
 

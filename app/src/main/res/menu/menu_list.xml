@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/menu_selected_stocks" android:icon="@drawable/ic_view_list_black_24dp" android:title="Selected Stocks"
+        app:showAsAction="always" />
+    <item android:id="@+id/menu_stock_info" android:icon="@drawable/ic_trending_up_black_24dp" android:title="Stocks Info"
+        app:showAsAction="always" />
+    <item android:id="@+id/menu_stock_search" android:icon="@drawable/ic_search_black_24dp" android:title="Search Stocks"
+        app:showAsAction="always" />
+    <item android:id="@+id/menu_stock_trade_info" android:icon="@drawable/ic_view_headline_black_24dp" android:title="Stocks Trade Info"
+        app:showAsAction="always" />
+    <item android:id="@+id/menu_system_parameters" android:icon="@drawable/ic_save_black_24dp" android:title="System Parameters"
+        app:showAsAction="always" />
+    <item android:id="@+id/menu_night_mode" android:icon="@drawable/ic_brightness_3_black_24dp" android:title="NightMode"
+        app:showAsAction="always" />
+</menu>

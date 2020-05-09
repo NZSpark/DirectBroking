@@ -135,4 +135,15 @@
         app:layout_constraintVertical_bias="0.25"
         app:srcCompat="@drawable/ic_search_black_24dp" />
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rvStockList"
+        app:srcCompat="@android:drawable/ic_dialog_dialer" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

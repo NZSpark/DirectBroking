@@ -10,16 +10,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
-import android.view.inputmethod.EditorInfo
 import android.widget.*
 import kotlinx.android.synthetic.main.activity_login.*
 
 import nz.co.seclib.dbroker.R
-import nz.co.seclib.dbroker.sysinfo.SystemConfigActivity
 import nz.co.seclib.dbroker.ui.stockinfo.SelectedStocksActivity
-import nz.co.seclib.dbroker.ui.stockinfo.TradeLogActivity
-import nz.co.seclib.dbroker.utils.MyApplication
-import kotlin.math.log
 
 class LoginActivity : AppCompatActivity() {
 

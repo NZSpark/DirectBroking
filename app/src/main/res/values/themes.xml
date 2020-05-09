@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!--Material color attributes (light theme) -->
+
+    <style name="Base.Theme" parent="Theme.MaterialComponents.DayNight.DarkActionBar"/>
+
+    <style name="Base.Theme.MyApp" parent="Base.Theme">
+        <item name="colorPrimary">@color/primaryColor</item> //toolbar color
+        <item name="colorPrimaryDark">@color/primaryDarkColor</item> // status bar color
+        <item name="colorPrimaryVariant">@color/primaryDarkColor</item> // status bar color
+        <item name="colorSecondary">@color/secondaryColor</item> // fab icon color
+        <item name="colorSecondaryVariant">@color/secondaryDarkColor</item>
+
+        <item name="android:textColorPrimary">@color/primaryTextColor</item>
+        <item name="android:textColorSecondary">@color/secondaryTextColor</item>
+
+        <item name="android:colorBackground">@color/white_50</item>
+
+        <item name="colorSurface">@color/white_50</item>
+        <item name="colorError">@color/red_600</item>
+
+        <item name="colorOnPrimary">@color/black_900</item>
+        <item name="colorOnSecondary">@color/white_50</item>
+        <item name="colorOnBackground">@color/black_900</item>
+        <item name="colorOnSurface">@color/black_900</item>
+        <item name="colorOnError">@color/white_50</item>
+        <item name="android:tint">@color/black_800</item>    //try to change vector icon color
+        <item name="android:iconTint">@color/black_800</item>//try to change vector icon color
+        <item name="android:buttonTint">@color/black_800</item>//try to change vector icon color
+        <item name="android:drawableTint">@color/black_800</item>//try to change vector icon color
+
+        <item name="materialAlertDialogTheme">@style/ThemeOverlay.MaterialComponents.Dialog.Alert</item> // this applies a default theme for alert dialogs.
+        <item name="bottomSheetDialogTheme">@style/ThemeOverlay.MyTheme.BottomSheetDialog</item> // this applies a default theme for bottom sheets.
+        <item name="toolbarStyle">@style/Widget.MaterialComponents.Toolbar.PrimarySurface</item> // this applies a default theme for toolbars.
+
+        <item name="materialCardViewStyle">@style/Base.Theme.MaterialCardView</item> // this applies a default theme for material card views.
+        <item name="textInputStyle">@style/Base.Theme.TextInputLayout</item> // this applies a default theme for text inputs.
+    </style>
+
+    // default app theme applied to Application class in AndroidManifest.xml
+    <style name="Theme.MyApp" parent="Base.Theme.MyApp" />
+
+    // universal theming for all card views.
+    <style name="Base.Theme.MaterialCardView" parent="Widget.MaterialComponents.CardView">
+        <item name="cardElevation">@dimen/card_elevation</item>
+        <item name="cardPreventCornerOverlap">false</item>
+        <item name="cardUseCompatPadding">true</item>
+    </style>
+
+    // universal theming for all text-input-layouts.
+    <style name="Base.Theme.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="hintTextColor">@color/primaryColor</item>
+    </style>
+    
+</resources>
