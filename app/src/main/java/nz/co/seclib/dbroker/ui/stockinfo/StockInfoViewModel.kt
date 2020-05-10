@@ -14,9 +14,12 @@ import java.lang.Thread.sleep
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
+import nz.co.seclib.dbroker.R
+import com.wordplat.ikvstockchart.entry.*
+import nz.co.seclib.dbroker.data.NZXWeb
 
 @RequiresApi(Build.VERSION_CODES.O)
-class TradeLogViewModel(private val tradeLogRepository:TradeLogRepository) : ViewModel(){
+class StockInfoViewModel(private val tradeLogRepository:TradeLogRepository) : ViewModel(){
     //for TradeLogActivity ----begin
     private val _tradeLogList = MutableLiveData<List<TradeLog>>()
     val tradeLogList: LiveData<List<TradeLog>> = _tradeLogList
@@ -49,6 +52,7 @@ class TradeLogViewModel(private val tradeLogRepository:TradeLogRepository) : Vie
 
     private val viewModelJob = SupervisorJob()
 
+    //get parameters from database. (UserName, Password, TimerInterval, TimerEnable)
     fun initWithStockCode(inStockCode: String){
         if(inStockCode == "")
             stockCode = "KMD"
@@ -56,6 +60,7 @@ class TradeLogViewModel(private val tradeLogRepository:TradeLogRepository) : Vie
             stockCode = inStockCode
 
         CoroutineScope(viewModelJob).launch {
+
             if (!bInitilized) {
                 //get UserName
                 userName = tradeLogRepository.getPropertyValuebyPropertyName("UserName")
@@ -100,10 +105,12 @@ class TradeLogViewModel(private val tradeLogRepository:TradeLogRepository) : Vie
         }
     }
 
+
     fun resetTimer()= viewModelScope.launch(Dispatchers.IO) {
         //TODO
     }
 
+    //get data from web and store data into database periodically.
     private fun setTimerWithStockCode(){
         //if(stockCode == "") return
         timer.scheduleAtFixedRate(
@@ -149,7 +156,9 @@ class TradeLogViewModel(private val tradeLogRepository:TradeLogRepository) : Vie
         tradeLogRepository.deleteUserStock(UserStock(userName,stockCode))
     }
 
-    private fun updateSelectedStockListByUserID(userName: String) = viewModelScope.launch(Dispatchers.IO) {
+    //update data by selected stocks list.
+    private fun updateSelectedStockListByUserID(userName: String) =
+        viewModelScope.launch(Dispatchers.IO) {
         val stockCurrentTradeInfoList = mutableListOf<StockCurrentTradeInfo>()
         val stockCodeList =  tradeLogRepository.selectStockCodeByUserID(userName)
         stockCodeList.forEach { newStockCode ->
@@ -162,6 +171,7 @@ class TradeLogViewModel(private val tradeLogRepository:TradeLogRepository) : Vie
     }
     //for StockInfoActivity ---------------end
 
+    //market open time. from "09:45" to "17:15".
     private fun checkMarketTradingTime():Boolean{
         val currentTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH:mm"))
         val openTime = "09:45"

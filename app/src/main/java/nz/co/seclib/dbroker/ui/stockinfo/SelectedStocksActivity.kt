@@ -18,7 +18,7 @@ import nz.co.seclib.dbroker.R
 import nz.co.seclib.dbroker.ui.sysinfo.SystemConfigActivity
 
 class SelectedStocksActivity : AppCompatActivity(){
-    private lateinit var selectStockViewModel: TradeLogViewModel
+    private lateinit var selectStockViewModel: StockInfoViewModel
 
 
 
@@ -45,7 +45,7 @@ class SelectedStocksActivity : AppCompatActivity(){
         recyclerView.layoutManager = LinearLayoutManager(this)
 
         //selectStockViewModel = DBrokerViewModelFactory(this.application).create(DBrokerViewModel::class.java)
-        selectStockViewModel = TradeLogViewModelFactory(this.application).create(TradeLogViewModel::class.java)
+        selectStockViewModel = StockInfoViewModelFactory(this.application).create(StockInfoViewModel::class.java)
         selectStockViewModel.initWithStockCode("") //initial timer.
 
 //        selectStockViewModel.stockCurrentTradeInfo.observe(this, Observer {

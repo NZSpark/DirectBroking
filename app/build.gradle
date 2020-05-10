@@ -72,4 +72,14 @@ dependencies {
 // Testing
     testImplementation 'junit:junit:4.12'
     androidTestImplementation "androidx.arch.core:core-testing:$rootProject.coreTestingVersion"
+
+    //StockChart, use java directly from ikv author.
+    implementation 'com.wordplat:ikvStockChart:0.1.5'
+    implementation 'com.readystatesoftware.systembartint:systembartint:1.0.3'
+    implementation 'org.xutils:xutils:3.3.36'
+    implementation 'com.android.support:multidex:1.0.1'
+    implementation 'com.chanven.lib:cptr:1.1.0'
+    //implementation 'com.alibaba:fastjson:1.1.46.android'
+
+
 }

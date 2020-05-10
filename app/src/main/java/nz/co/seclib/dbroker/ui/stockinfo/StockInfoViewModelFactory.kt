@@ -9,16 +9,16 @@ import nz.co.seclib.dbroker.data.DBrokerRoomDatabase
 import nz.co.seclib.dbroker.data.DirectBrokingWeb
 import nz.co.seclib.dbroker.data.TradeLogRepository
 
-class TradeLogViewModelFactory(var application: Application): ViewModelProvider.Factory  {
+class StockInfoViewModelFactory(var application: Application): ViewModelProvider.Factory  {
     companion object{
-        var instance:TradeLogViewModel? = null
+        var instance:StockInfoViewModel? = null
     }
     @RequiresApi(Build.VERSION_CODES.O)
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(TradeLogViewModel::class.java)) {
+        if (modelClass.isAssignableFrom(StockInfoViewModel::class.java)) {
             if(instance == null)
-                instance = TradeLogViewModel(
+                instance = StockInfoViewModel(
                     tradeLogRepository = TradeLogRepository(
                         dbDao = DBrokerRoomDatabase.getDatabase(application).dbrokerDAO(),
                         dbWeb = DirectBrokingWeb()

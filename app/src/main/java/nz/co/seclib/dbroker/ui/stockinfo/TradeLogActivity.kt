@@ -16,7 +16,7 @@ import nz.co.seclib.dbroker.R
 import nz.co.seclib.dbroker.ui.sysinfo.SystemConfigActivity
 
 class TradeLogActivity : AppCompatActivity() , CoroutineScope by MainScope(){
-    private lateinit var tradeLogViewModel: TradeLogViewModel
+    private lateinit var stockInfoViewModel: StockInfoViewModel
 
 
     override fun onDestroy() {
@@ -36,13 +36,13 @@ class TradeLogActivity : AppCompatActivity() , CoroutineScope by MainScope(){
         rvTradeLog.adapter = adapter
         rvTradeLog.layoutManager = LinearLayoutManager(this)
 
-        tradeLogViewModel = TradeLogViewModelFactory(this.application).create(TradeLogViewModel::class.java)
+        stockInfoViewModel = StockInfoViewModelFactory(this.application).create(StockInfoViewModel::class.java)
 //      tradeLogViewModel = ViewModelProviders.of(this, TradeLogViewModelFactory(this.application))
 //            .get(TradeLogViewModel::class.java)
 
-        tradeLogViewModel.initWithStockCode(stockCode)
+        stockInfoViewModel.initWithStockCode(stockCode)
 
-        tradeLogViewModel.tradeLogList.observe(this, Observer {
+        stockInfoViewModel.tradeLogList.observe(this, Observer {
             adapter.setTradeLog(it)
         })
 

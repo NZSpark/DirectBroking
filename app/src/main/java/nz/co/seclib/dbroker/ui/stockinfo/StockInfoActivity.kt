@@ -7,15 +7,25 @@ import android.os.Bundle
 import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.*
+import android.widget.TableLayout
+import android.widget.TableRow
+import android.widget.TextView
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.Observer
 import com.squareup.picasso.Picasso
+import com.wordplat.ikvstockchart.InteractiveKLineView
+import com.wordplat.ikvstockchart.entry.EntrySet
+import com.wordplat.ikvstockchart.render.TimeLineRender
 import kotlinx.android.synthetic.main.activity_stock_info.*
 import nz.co.seclib.dbroker.R
-import nz.co.seclib.dbroker.data.*
+import nz.co.seclib.dbroker.data.AsksTable
+import nz.co.seclib.dbroker.data.BidsTable
+import nz.co.seclib.dbroker.data.CurrentState
+import nz.co.seclib.dbroker.data.TradesTable
+import nz.co.seclib.dbroker.ui.StockChartActivity
 import nz.co.seclib.dbroker.ui.sysinfo.SystemConfigActivity
 
 
@@ -27,7 +37,7 @@ class StockInfoActivity : AppCompatActivity() {
     var stockCode = ""
     //var stockTradeInfo = StockTradeInfo()
     //private lateinit var stockInfoViewModel: DBrokerViewModel
-    private lateinit var stockInfoViewModel: TradeLogViewModel
+    private lateinit var stockInfoViewModel: StockInfoViewModel
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,9 +47,11 @@ class StockInfoActivity : AppCompatActivity() {
 
         stockCode = intent.getStringExtra("STOCKCODE") ?:""
 
+
+
         val picasso = Picasso.Builder(this).build()
         //stockInfoViewModel = DBrokerViewModelFactory(this.application).create(DBrokerViewModel::class.java)
-        stockInfoViewModel = TradeLogViewModelFactory(this.application).create(TradeLogViewModel::class.java)
+        stockInfoViewModel = StockInfoViewModelFactory(this.application).create(StockInfoViewModel::class.java)
         stockInfoViewModel.initWithStockCode(stockCode)
 
         stockInfoViewModel.stockCurrentTradeInfo.observe(this, Observer {stockCurrentTradeInfo ->
@@ -138,6 +150,13 @@ class StockInfoActivity : AppCompatActivity() {
                 tlStockPrice.addView(tableRow)
             }
         })
+
+        imageView.setOnClickListener {
+            val intent = Intent(this, StockChartActivity::class.java).apply {
+                putExtra("STOCKCODE",stockCode)
+            }
+            startActivity(intent)
+        }
 
         ivAdd.setOnClickListener{
             stockInfoViewModel.insertUserStock(stockCode)

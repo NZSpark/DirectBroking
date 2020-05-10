@@ -1,16 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <item android:id="@+id/menu_selected_stocks" android:icon="@drawable/ic_view_list_black_24dp" android:title="Selected Stocks"
+    <item
+        android:id="@+id/menu_selected_stocks"
+        android:icon="@drawable/ic_view_list_black_24dp"
+        android:title="@string/menu_selected_stocks"
         app:showAsAction="always" />
-    <item android:id="@+id/menu_stock_info" android:icon="@drawable/ic_trending_up_black_24dp" android:title="Stocks Info"
+    <item
+        android:id="@+id/menu_stock_info"
+        android:icon="@drawable/ic_trending_up_black_24dp"
+        android:title="@string/menu_stocks_info"
         app:showAsAction="always" />
-    <item android:id="@+id/menu_stock_search" android:icon="@drawable/ic_search_black_24dp" android:title="Search Stocks"
+    <item
+        android:id="@+id/menu_stock_search"
+        android:icon="@drawable/ic_search_black_24dp"
+        android:title="@string/menu_stock_search"
         app:showAsAction="always" />
-    <item android:id="@+id/menu_stock_trade_info" android:icon="@drawable/ic_view_headline_black_24dp" android:title="Stocks Trade Info"
+    <item
+        android:id="@+id/menu_stock_trade_info"
+        android:icon="@drawable/ic_view_headline_black_24dp"
+        android:title="@string/menu_stock_trade_info"
         app:showAsAction="always" />
-    <item android:id="@+id/menu_system_parameters" android:icon="@drawable/ic_save_black_24dp" android:title="System Parameters"
+    <item
+        android:id="@+id/menu_system_parameters"
+        android:icon="@drawable/ic_save_black_24dp"
+        android:title="@string/menu_system_parameters"
         app:showAsAction="always" />
-    <item android:id="@+id/menu_night_mode" android:icon="@drawable/ic_brightness_3_black_24dp" android:title="NightMode"
+    <item
+        android:id="@+id/menu_night_mode"
+        android:icon="@drawable/ic_brightness_3_black_24dp"
+        android:title="@string/menu_display_mode"
         app:showAsAction="always" />
 </menu>
