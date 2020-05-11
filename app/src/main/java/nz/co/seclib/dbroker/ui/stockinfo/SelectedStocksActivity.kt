@@ -15,17 +15,22 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_selected_stock_list.*
 import nz.co.seclib.dbroker.R
+import nz.co.seclib.dbroker.data.model.StockScreenInfo
 import nz.co.seclib.dbroker.ui.sysinfo.SystemConfigActivity
 
 class SelectedStocksActivity : AppCompatActivity(){
     private lateinit var selectStockViewModel: StockInfoViewModel
-
+    var bShowSelectedList = true
 
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_selected_stock_list)
+
+        //selectStockViewModel = DBrokerViewModelFactory(this.application).create(DBrokerViewModel::class.java)
+        selectStockViewModel = StockInfoViewModelFactory(this.application).create(StockInfoViewModel::class.java)
+        selectStockViewModel.initWithStockCode("") //initial timer.
 
         val fab: FloatingActionButton = findViewById(R.id.fab)
 
@@ -44,10 +49,8 @@ class SelectedStocksActivity : AppCompatActivity(){
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        //selectStockViewModel = DBrokerViewModelFactory(this.application).create(DBrokerViewModel::class.java)
-        selectStockViewModel = StockInfoViewModelFactory(this.application).create(StockInfoViewModel::class.java)
-        selectStockViewModel.initWithStockCode("") //initial timer.
 
+        selectStockViewModel.getSelectedStockList()
 //        selectStockViewModel.stockCurrentTradeInfo.observe(this, Observer {
 //            it?.let{
 //                adapter.setStocks(it)
@@ -67,11 +70,18 @@ class SelectedStocksActivity : AppCompatActivity(){
 //            }
 //        })
 
-//
-//        ivRefresh.setOnClickListener {
-//            //adapter.setStocks(emptyList<String>())
-//            adapter.setStocks(stockCodeList)
-//        }
+
+        ivRefresh.setOnClickListener {
+           if(bShowSelectedList){
+               bShowSelectedList = false
+               supportActionBar!!.setTitle("All Stocks")
+               adapter.setStocks(StockScreenInfo.convertScreenInfoListToStockCurrentTradeInfoList(selectStockViewModel.getScreenInfoListByType("VALUE")))
+           }else{
+               bShowSelectedList = true
+               supportActionBar!!.setTitle("Selected")
+               selectStockViewModel.getSelectedStockList()
+           }
+        }
 
         ivSearch.setOnClickListener {
             val intent = Intent(this, SearchActivity::class.java)

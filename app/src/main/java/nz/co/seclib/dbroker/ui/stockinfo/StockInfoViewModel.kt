@@ -5,10 +5,6 @@ import androidx.annotation.RequiresApi
 import androidx.lifecycle.*
 import kotlinx.coroutines.*
 import nz.co.seclib.dbroker.data.TradeLogRepository
-import nz.co.seclib.dbroker.data.model.AskBidLog
-import nz.co.seclib.dbroker.data.model.StockCurrentTradeInfo
-import nz.co.seclib.dbroker.data.model.TradeLog
-import nz.co.seclib.dbroker.data.model.UserStock
 import nz.co.seclib.dbroker.utils.AESEncryption
 import java.lang.Thread.sleep
 import java.time.LocalDateTime
@@ -17,12 +13,15 @@ import java.util.*
 import nz.co.seclib.dbroker.R
 import com.wordplat.ikvstockchart.entry.*
 import nz.co.seclib.dbroker.data.NZXWeb
+import nz.co.seclib.dbroker.data.model.*
 
 @RequiresApi(Build.VERSION_CODES.O)
 class StockInfoViewModel(private val tradeLogRepository:TradeLogRepository) : ViewModel(){
     //for TradeLogActivity ----begin
     private val _tradeLogList = MutableLiveData<List<TradeLog>>()
     val tradeLogList: LiveData<List<TradeLog>> = _tradeLogList
+    private val _entrySet = MutableLiveData<EntrySet>()
+    val entrySet : LiveData<EntrySet> = _entrySet
     //for TradeLogActivity ----end
 
     //for SelectedStocksActivity --begin
@@ -82,12 +81,10 @@ class StockInfoViewModel(private val tradeLogRepository:TradeLogRepository) : Vi
                 tradeLogRepository.setNetWortConfidential(userName,password)
             }
 
-            //initial for SelectedStocksActivity
-            // will update _stockCurrentTradeInfoList, _stockCurrentTradeInfo at the same time.
-            updateSelectedStockListByUserID(userName)
-
             //initial for TradeLogActivity
-            _tradeLogList.postValue(tradeLogRepository.getTodayTradeLog(stockCode).reversed())
+            val todayTradeList = tradeLogRepository.getTodayTradeLog(stockCode).reversed()
+            _tradeLogList.postValue(todayTradeList)
+            _entrySet.postValue(tradeLogRepository.copyTradeLogListToEntrySet(todayTradeList))
 
             //initial for StockInfoActivity
             _stockCurrentTradeInfo.postValue(
@@ -96,6 +93,10 @@ class StockInfoViewModel(private val tradeLogRepository:TradeLogRepository) : Vi
                 )
             )
             _askBidLog.postValue(tradeLogRepository.getAskBidListByStockCode(stockCode))
+
+            //initial for SelectedStocksActivity
+            // will update _stockCurrentTradeInfoList, _stockCurrentTradeInfo at the same time.
+            //updateSelectedStockListByUserID(userName)
 
             //only to start timer during the market trading time.
             if (bTimerEnable && bTimerIdle && checkMarketTradingTime()) {
@@ -117,13 +118,23 @@ class StockInfoViewModel(private val tradeLogRepository:TradeLogRepository) : Vi
             object : TimerTask(){
                 override fun run() {
                     CoroutineScope(viewModelJob).launch {
+                        //store data to database
                         tradeLogRepository.storeTradeInfoFromWebToDBByStockCode(stockCode)
-                        // _tradeLogList.postValue(tradeLogRepository.diffList)
-                        _tradeLogList.postValue(tradeLogRepository.getTodayTradeLog(stockCode).reversed())
-                        //_stockCurrentTradeInfo.postValue(tradeLogRepository.getCurrentTradeInfoByStockCode(stockCode))
-                        updateSelectedStockListByUserID(userName)
+
+                        //for SelectedListActivity, it seems not necessary.
+                        //updateSelectedStockListByUserID(userName)
+
+                        //for StockInfoActivity
+                        _stockCurrentTradeInfo.postValue(tradeLogRepository.getCurrentTradeInfoByStockCode(stockCode))
                         _askBidLog.postValue(tradeLogRepository.getAskBidListByStockCode(stockCode))
+
+
+                        //for TradeLogActivity
+                        // _tradeLogList.postValue(tradeLogRepository.diffList)
                         //tradeLogRepository.diffList = emptyList()
+                        val todayTradeList = tradeLogRepository.getTodayTradeLog(stockCode).reversed()
+                        _tradeLogList.postValue(todayTradeList)
+                        _entrySet.postValue(tradeLogRepository.copyTradeLogListToEntrySet(todayTradeList))
                     }
                 }
             },0,timerInterval
@@ -157,15 +168,13 @@ class StockInfoViewModel(private val tradeLogRepository:TradeLogRepository) : Vi
     }
 
     //update data by selected stocks list.
-    private fun updateSelectedStockListByUserID(userName: String) =
+    fun getSelectedStockList() =
         viewModelScope.launch(Dispatchers.IO) {
         val stockCurrentTradeInfoList = mutableListOf<StockCurrentTradeInfo>()
         val stockCodeList =  tradeLogRepository.selectStockCodeByUserID(userName)
         stockCodeList.forEach { newStockCode ->
             val currentTradeInfo = tradeLogRepository.getCurrentTradeInfoByStockCode(newStockCode)?:return@forEach
             stockCurrentTradeInfoList.add(currentTradeInfo)
-            if(currentTradeInfo.stockCode == stockCode)
-                _stockCurrentTradeInfo.postValue(currentTradeInfo)
         }
         _stockCurrentTradeInfoList.postValue(stockCurrentTradeInfoList)
     }
@@ -180,4 +189,9 @@ class StockInfoViewModel(private val tradeLogRepository:TradeLogRepository) : Vi
             return true
         return false
     }
+
+    fun getScreenInfoListByType(sortType:String):List<StockScreenInfo>{
+        return tradeLogRepository.getScreenInfoListByType(sortType)
+    }
+
 }

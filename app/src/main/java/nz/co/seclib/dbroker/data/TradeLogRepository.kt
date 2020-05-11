@@ -2,6 +2,8 @@ package nz.co.seclib.dbroker.data
 
 import android.os.Build
 import androidx.annotation.RequiresApi
+import com.wordplat.ikvstockchart.entry.Entry
+import com.wordplat.ikvstockchart.entry.EntrySet
 import nz.co.seclib.dbroker.data.model.*
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -19,6 +21,10 @@ class TradeLogRepository(private val dbDao: DBrokerDAO, private val dbWeb: Direc
     fun setNetWortConfidential(userID: String,password:String){
         dbWeb._username = userID
         dbWeb._password = password
+    }
+
+    fun getScreenInfoListByType(sortType:String):List<StockScreenInfo>{
+        return StockScreenInfo.getStockScreenInfoFromString(dbWeb.getScreenPage(sortType))
     }
 
     fun getPropertyValuebyPropertyName(propertyName:String):String{
@@ -66,6 +72,14 @@ class TradeLogRepository(private val dbDao: DBrokerDAO, private val dbWeb: Direc
     //Get trade logs from database against time span
     fun getTradeLogByTime(startTime:String,endTime:String,stockCode: String) : List<TradeLog>{
         return dbDao.selectTradeLogByTime(startTime,endTime,stockCode)
+    }
+
+    fun copyTradeLogListToEntrySet(tradeLogList: List<TradeLog>):EntrySet{
+        val entrySet = EntrySet()
+        tradeLogList.reversed().forEach{tradeLog ->
+            entrySet.addEntry(Entry(tradeLog.price.toFloat(),tradeLog.tradeVolume.replace(",","").toInt(),tradeLog.tradeTime))
+        }
+        return entrySet
     }
 
     //Get today's trade logs

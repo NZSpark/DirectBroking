@@ -7,7 +7,7 @@
     android:orientation="vertical">
 
     <com.wordplat.ikvstockchart.InteractiveKLineLayout
-        android:id="@+id/kLineLayout"
+        android:id="@+id/klTrade"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 

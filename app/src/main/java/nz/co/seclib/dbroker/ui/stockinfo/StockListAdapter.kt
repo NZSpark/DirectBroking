@@ -10,6 +10,7 @@ import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import nz.co.seclib.dbroker.R
 import nz.co.seclib.dbroker.data.model.StockCurrentTradeInfo
+import nz.co.seclib.dbroker.data.model.StockScreenInfo
 import nz.co.seclib.dbroker.utils.MyApplication
 
 class StockListAdapter  internal constructor(
@@ -111,6 +112,7 @@ class StockListAdapter  internal constructor(
         this.stocks = stockCurrentTradeInfoList
         notifyDataSetChanged()
     }
+
 
     override fun getItemCount() = stocks.size
 }

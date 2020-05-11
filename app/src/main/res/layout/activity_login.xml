@@ -20,7 +20,7 @@
         android:layout_marginEnd="24dp"
 
         android:hint="@string/prompt_email"
-        android:inputType="textEmailAddress"
+        android:inputType="number"
         android:selectAllOnFocus="true"
         android:text="3065692"
         app:layout_constraintEnd_toEndOf="parent"
@@ -89,5 +89,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/login"
         app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/tvAuthorEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="spark.zheng@outlook.com"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cbSaveToDB"
+        app:layout_constraintVertical_bias="0.865" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

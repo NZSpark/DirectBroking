@@ -6,23 +6,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.wordplat.ikvstockchart.InteractiveKLineLayout
-        android:id="@+id/kLineLayout"
+    <com.wordplat.ikvstockchart.InteractiveKLineView
+        android:id="@+id/klTrade"
         android:layout_width="408dp"
         android:layout_height="227dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-    </com.wordplat.ikvstockchart.InteractiveKLineLayout>
+    </com.wordplat.ikvstockchart.InteractiveKLineView>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvTradeLog"
-        android:layout_width="381dp"
-        android:layout_height="501dp"
+        android:layout_width="379dp"
+        android:layout_height="456dp"
+        android:layout_marginTop="32dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/kLineLayout"
+        app:layout_constraintTop_toBottomOf="@+id/klTrade"
         tools:listitem="@layout/recyclerview_tradelog" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -16,16 +16,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.Observer
 import com.squareup.picasso.Picasso
-import com.wordplat.ikvstockchart.InteractiveKLineView
-import com.wordplat.ikvstockchart.entry.EntrySet
-import com.wordplat.ikvstockchart.render.TimeLineRender
 import kotlinx.android.synthetic.main.activity_stock_info.*
 import nz.co.seclib.dbroker.R
 import nz.co.seclib.dbroker.data.AsksTable
 import nz.co.seclib.dbroker.data.BidsTable
 import nz.co.seclib.dbroker.data.CurrentState
 import nz.co.seclib.dbroker.data.TradesTable
-import nz.co.seclib.dbroker.ui.StockChartActivity
+import nz.co.seclib.dbroker.ui.StockChartNZXActivity
 import nz.co.seclib.dbroker.ui.sysinfo.SystemConfigActivity
 
 
@@ -152,7 +149,7 @@ class StockInfoActivity : AppCompatActivity() {
         })
 
         imageView.setOnClickListener {
-            val intent = Intent(this, StockChartActivity::class.java).apply {
+            val intent = Intent(this, StockChartNZXActivity::class.java).apply {
                 putExtra("STOCKCODE",stockCode)
             }
             startActivity(intent)

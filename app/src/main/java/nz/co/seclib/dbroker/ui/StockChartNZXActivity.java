@@ -19,7 +19,6 @@ import com.wordplat.ikvstockchart.compat.PerformenceAnalyser;
 import com.wordplat.ikvstockchart.entry.Entry;
 import com.wordplat.ikvstockchart.entry.EntrySet;
 import com.wordplat.ikvstockchart.entry.SizeColor;
-import com.wordplat.ikvstockchart.entry.StockDataTest;
 import com.wordplat.ikvstockchart.render.KLineRender;
 import nz.co.seclib.dbroker.R;
 import nz.co.seclib.dbroker.data.NZXWeb;
@@ -27,7 +26,6 @@ import nz.co.seclib.dbroker.data.NZXWeb;
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.ViewInject;
 
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,11 +36,11 @@ import java.util.List;
  * @author afon
  */
 
-@ContentView(R.layout.activity_left_and_right_refresh)
-public class StockChartActivity extends BaseActivity {
+@ContentView(R.layout.activity_stock_chart_nzx)
+public class StockChartNZXActivity extends BaseActivity {
     private static final String TAG = "Activity";
 
-    @ViewInject(R.id.kLineLayout)
+    @ViewInject(R.id.klTrade)
     InteractiveKLineLayout kLineLayout = null;
     @ViewInject(R.id.MA_Text) private TextView MA_Text = null;
     @ViewInject(R.id.StockIndex_Text) private TextView StockIndex_Text = null;
@@ -351,7 +349,7 @@ public class StockChartActivity extends BaseActivity {
     }
 
     public static Intent createIntent(Context context) {
-        Intent intent = new Intent(context, StockChartActivity.class);
+        Intent intent = new Intent(context, StockChartNZXActivity.class);
         return intent;
     }
 }

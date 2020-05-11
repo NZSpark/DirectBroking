@@ -9,6 +9,7 @@ import com.google.gson.reflect.TypeToken
 import nz.co.seclib.dbroker.data.AsksRow
 import nz.co.seclib.dbroker.data.BidsRow
 import nz.co.seclib.dbroker.data.TradesRow
+import org.jsoup.Jsoup
 import java.lang.reflect.Type
 import java.sql.Date
 
@@ -230,16 +231,96 @@ class StockCurrentTradeInfo{
     var pictLink = ""
 }
 
-class StockScreenInfo{
+class StockScreenInfo {
     var stockCode = ""
     var companyName = ""
+    var changeValue = ""
+    var changePercent = ""
     var price = ""
-    var change = ""
-    var volume = ""
     var value = ""
+    var volume = ""
     var marketCap = ""
     var tradeNumber = ""
     var infoTime = ""
+
+    /*
+    <tr class="dgitTR" onmouseover="Highlight(this);" onmouseout="UnHighlight(this);">
+        <td nowrap="nowrap" class="dgitfirstcolumn">FISHERHEALTH</td>
+        <td><a href='../dynamic/quote.aspx?qqsc=FPH&amp;qqe=NZSE'>FPH.NZ</a></td>
+        <td align="Right">75</td>
+        <TD><img src="../images/spacer.gif" alt="Down" class="downarrow" width="15" height="10"></TD>
+        <TD>2.5%</TD>
+        <td align="Right"><b>2905</b></td>
+        <td align="Right">$12,531,117</td>
+        <td align="Right">429,727</td>
+        <td align="Right">16.69B</td>
+        <td align="Right" class="dgitlastcolumn">3,214</td>
+    </tr>
+     */
+
+    companion object {
+        fun convertScreenInfoListToStockCurrentTradeInfoList(stockScreenInfoList: List<StockScreenInfo>): List<StockCurrentTradeInfo> {
+
+            val stockCurrentTradeInfoList = mutableListOf<StockCurrentTradeInfo>()
+            stockScreenInfoList.forEach { stockScreenInfo ->
+                val stockCurrentTradeInfo = StockCurrentTradeInfo()
+                stockCurrentTradeInfo.stockCode = stockScreenInfo.stockCode
+                stockCurrentTradeInfo.companyName = stockScreenInfo.companyName
+                stockCurrentTradeInfo.change = stockScreenInfo.changePercent
+                stockCurrentTradeInfo.price = stockScreenInfo.price
+                stockCurrentTradeInfo.value = stockScreenInfo.value
+                stockCurrentTradeInfo.volume = stockScreenInfo.volume
+                stockCurrentTradeInfo.infoTime = stockScreenInfo.infoTime
+                stockCurrentTradeInfoList.add(stockCurrentTradeInfo)
+            }
+            return stockCurrentTradeInfoList
+        }
+
+        fun getStockScreenInfoFromString(sIn: String): List<StockScreenInfo> {
+            val stockScreenInfoList = mutableListOf<StockScreenInfo>()
+
+            val document = Jsoup.parse(sIn)
+            val tableRows = document.select("table[class=dgtbl] tr")
+
+            // The first two rows contain unwanted information
+//            tableRows.removeAt(0)
+//            tableRows.removeAt(1)
+//            tableRows.removeAt(2)
+
+            for (i in 3..tableRows.size-1) {
+                val row = tableRows[i]
+                val stockScreenInfo = StockScreenInfo()
+                val tds = row.getElementsByTag("td")
+                println("DEBUG: " + tds.size)
+                if (tds.size < 8) continue
+
+                stockScreenInfo.companyName =
+                    tds.first().text().replace("\u00a0".toRegex(), "").trim { it <= ' ' }
+                stockScreenInfo.stockCode =
+                    tds[1].text().replace("\u00a0".toRegex(), "").replace(".NZ", "").trim { it <= ' ' }
+                stockScreenInfo.changeValue =
+                    tds[2].text().replace("\u00a0".toRegex(), "").trim { it <= ' ' }
+                val arrow = tds[3].html().indexOf("downarrow")
+                stockScreenInfo.changePercent =
+                    tds[4].text().replace("\u00a0".toRegex(), "").trim { it <= ' ' }
+                if (arrow > 0) stockScreenInfo.changePercent = "-" + stockScreenInfo.changePercent
+                stockScreenInfo.price =
+                    tds[5].text().replace("\u00a0".toRegex(), "").trim { it <= ' ' }
+                stockScreenInfo.value =
+                    tds[6].text().replace("\u00a0".toRegex(), "").trim { it <= ' ' }
+                stockScreenInfo.volume =
+                    tds[7].text().replace("\u00a0".toRegex(), "").trim { it <= ' ' }
+                stockScreenInfo.marketCap =
+                    tds[8].text().replace("\u00a0".toRegex(), "").trim { it <= ' ' }
+                stockScreenInfo.tradeNumber =
+                    tds[9].text().replace("\u00a0".toRegex(), "").trim { it <= ' ' }
+
+                stockScreenInfoList.add(stockScreenInfo)
+            }
+
+            return stockScreenInfoList
+        }
+    }
 }
 
 

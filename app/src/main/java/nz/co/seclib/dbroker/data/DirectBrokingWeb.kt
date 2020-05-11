@@ -1,6 +1,7 @@
 package nz.co.seclib.dbroker.data
 
 import nz.co.seclib.dbroker.data.model.StockCurrentTradeInfo
+import nz.co.seclib.dbroker.data.model.StockScreenInfo
 import nz.co.seclib.dbroker.data.model.TradeLog
 import okhttp3.*
 import java.io.IOException
@@ -31,7 +32,7 @@ class DirectBrokingWeb {
     var _password  = ""
     var bAuthenticated = false
 
-    //extract tables from string. 3 tables:BidsTable,AsksTable,RecentTradesTable
+    //extract tables from string. 3 tables:BidsTable,AsksTable,RecentTradesTable, RankTable
     fun getTableString(sIn:String, tableName:String):String {
         var sTable:String = ""
 
@@ -465,6 +466,7 @@ class DirectBrokingWeb {
         return mCurrentState.webPage
     }
 
+    //get (rank page/screen page) by rank/sort type
     fun getScreenPage(sortType : String) :String {
 
         var url = "https://www.directbroking.co.nz/DirectTrade/dynamic/securityviews.aspx?e=NZSE"
@@ -473,7 +475,7 @@ class DirectBrokingWeb {
         var viewValidation = ""
         var viewStateGenerator = ""
 
-        var screenWebPage: String = ""
+        mCurrentState.webPage = ""
 
         fun run(){
             var request = Request.Builder()
@@ -513,7 +515,11 @@ class DirectBrokingWeb {
                     it.body?.close()
                     throw  IOException("Unexpected code $it")
                 }
-                screenWebPage = it.body?.string().toString()
+                val body = it.body?.string()
+                mCurrentState.viewState = getValueByTag(body, "__VIEWSTATE")
+                mCurrentState.viewValidation = getValueByTag(body, "__EVENTVALIDATION")
+                mCurrentState.viewStateGenerator = getValueByTag(body, "__VIEWSTATEGENERATOR")
+                mCurrentState.webPage = body.toString()
                 it.body?.close()
             }
 
@@ -525,7 +531,7 @@ class DirectBrokingWeb {
             thread.join()
         }
 
-        return screenWebPage
+        return mCurrentState.webPage
     }
 
     fun getLastDepthPage(stockCode:String) :String {

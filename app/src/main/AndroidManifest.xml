@@ -3,7 +3,6 @@
     package="nz.co.seclib.dbroker">
 
     <uses-permission android:name="android.permission.INTERNET" />
-
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application
@@ -14,12 +13,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApp">
-        <activity android:name="nz.co.seclib.dbroker.ui.sysinfo.SystemConfigActivity"
-            android:label="System"></activity>
-        <activity android:name=".ui.stockinfo.TradeLogActivity"
+        <activity
+            android:name=".ui.sysinfo.SystemConfigActivity"
+            android:label="System" />
+        <activity
+            android:name=".ui.stockinfo.TradeLogActivity"
             android:label="Trades"
-            android:launchMode="singleTop">
-        </activity>
+            android:launchMode="singleTop" />
         <activity
             android:name=".ui.login.LoginActivity"
             android:label="@string/app_name">
@@ -32,27 +32,23 @@
         <activity
             android:name=".ui.stockinfo.StockInfoActivity"
             android:label="Stock"
-            android:launchMode="singleTop">
-        </activity>
-
+            android:launchMode="singleTop" />
         <activity
-            android:name=".ui.StockChartActivity"
+            android:name=".ui.StockChartNZXActivity"
             android:label="Chart"
             android:launchMode="singleTop">
-            <meta-data android:name="android.support.PARENT_ACTIVITY"
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.stockinfo.StockInfoActivity" />
         </activity>
-
         <activity
             android:name=".ui.stockinfo.SearchActivity"
             android:label="Search"
-            android:launchMode="singleTop">
-        </activity>
+            android:launchMode="singleTop" />
         <activity
             android:name=".ui.stockinfo.SelectedStocksActivity"
             android:label="Selected"
-            android:launchMode="singleTop">
-        </activity>
+            android:launchMode="singleTop" />
     </application>
 
 </manifest>

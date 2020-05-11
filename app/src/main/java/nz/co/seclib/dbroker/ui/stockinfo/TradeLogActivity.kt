@@ -10,6 +10,7 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.wordplat.ikvstockchart.render.TimeLineRender
 import kotlinx.android.synthetic.main.activity_stock_tradelog.*
 import kotlinx.coroutines.*
 import nz.co.seclib.dbroker.R
@@ -44,6 +45,12 @@ class TradeLogActivity : AppCompatActivity() , CoroutineScope by MainScope(){
 
         stockInfoViewModel.tradeLogList.observe(this, Observer {
             adapter.setTradeLog(it)
+        })
+
+        stockInfoViewModel.entrySet.observe(this, Observer {entrySet ->
+            klTrade.setEntrySet(entrySet)
+            klTrade.render = TimeLineRender()
+            klTrade.notifyDataSetChanged()
         })
 
     }

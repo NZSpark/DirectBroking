@@ -2,6 +2,7 @@ package nz.co.seclib.dbroker.ui.login
 
 import android.app.Activity
 import android.content.Intent
+import android.net.Uri
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
@@ -14,9 +15,8 @@ import android.widget.*
 import kotlinx.android.synthetic.main.activity_login.*
 
 import nz.co.seclib.dbroker.R
-import nz.co.seclib.dbroker.ui.StockChartActivity
 import nz.co.seclib.dbroker.ui.stockinfo.SelectedStocksActivity
-import nz.co.seclib.dbroker.ui.stockinfo.StockInfoActivity
+import nz.co.seclib.dbroker.ui.sysinfo.SystemConfigActivity
 
 class LoginActivity : AppCompatActivity() {
 
@@ -124,12 +124,22 @@ class LoginActivity : AppCompatActivity() {
 //            val intent = Intent(this, StockInfoActivity::class.java).apply {
 //                putExtra("STOCKCODE","AIR")
 //            }
-            //val intent = Intent(this, SystemConfigActivity::class.java)
+//            val intent = Intent(this, SystemConfigActivity::class.java)
             //val intent = Intent(this, SelectedStocksActivity::class.java)
 //            startActivity(intent)
 
             loading.visibility = View.VISIBLE
             loginViewModel.login(username.text.toString(), password.text.toString())
+        }
+
+        //email feed back.
+        tvAuthorEmail.setOnClickListener {
+            val intent = Intent(Intent.ACTION_SENDTO).apply {
+                data = Uri.parse("mailto:")
+                putExtra(Intent.EXTRA_EMAIL,tvAuthorEmail.text.toString())
+                putExtra(Intent.EXTRA_SUBJECT,"Feed back on DBroker.app")
+            }
+            startActivity(intent)
         }
     }
 
