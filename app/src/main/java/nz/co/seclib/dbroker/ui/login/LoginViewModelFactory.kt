@@ -16,7 +16,7 @@ class LoginViewModelFactory(val application: Application) : ViewModelProvider.Fa
         if (modelClass.isAssignableFrom(LoginViewModel::class.java)) {
             return LoginViewModel(
                     loginRepository = LoginRepository(
-                        dbDao= DBrokerRoomDatabase.getDatabase(application).dbrokerDAO(), dbWeb= DirectBrokingWeb()
+                        dbDao= DBrokerRoomDatabase.getDatabase(application).dbrokerDAO(), dbWeb= DirectBrokingWeb.newInstance()
                     )
             ) as T
         }

@@ -17,6 +17,7 @@ import kotlinx.android.synthetic.main.activity_login.*
 import nz.co.seclib.dbroker.R
 import nz.co.seclib.dbroker.ui.stockinfo.SelectedStocksActivity
 import nz.co.seclib.dbroker.ui.sysinfo.SystemConfigActivity
+import nz.co.seclib.dbroker.ui.userinfo.UserInfoManagerActivity
 
 class LoginActivity : AppCompatActivity() {
 
@@ -126,6 +127,7 @@ class LoginActivity : AppCompatActivity() {
 //            }
 //            val intent = Intent(this, SystemConfigActivity::class.java)
             //val intent = Intent(this, SelectedStocksActivity::class.java)
+//            val intent = Intent(this, UserInfoManagerActivity::class.java)
 //            startActivity(intent)
 
             loading.visibility = View.VISIBLE

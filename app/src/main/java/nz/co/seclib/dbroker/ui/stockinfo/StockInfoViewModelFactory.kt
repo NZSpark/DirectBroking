@@ -21,7 +21,7 @@ class StockInfoViewModelFactory(var application: Application): ViewModelProvider
                 instance = StockInfoViewModel(
                     tradeLogRepository = TradeLogRepository(
                         dbDao = DBrokerRoomDatabase.getDatabase(application).dbrokerDAO(),
-                        dbWeb = DirectBrokingWeb()
+                        dbWeb = DirectBrokingWeb.newInstance()
                     )
                 )
             return instance as T

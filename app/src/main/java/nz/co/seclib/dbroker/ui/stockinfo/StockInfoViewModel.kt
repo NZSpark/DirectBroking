@@ -69,7 +69,9 @@ class StockInfoViewModel(private val tradeLogRepository:TradeLogRepository) : Vi
                 password = AESEncryption.decrypt(tradeLogRepository.getPropertyValuebyPropertyName("Password")).toString()
 
                 //get TimeInterval
-                timerInterval = tradeLogRepository.getPropertyValuebyPropertyName("TimerInterval").toLong()
+                var tmp = tradeLogRepository.getPropertyValuebyPropertyName("TimerInterval")
+                if(tmp == "") tmp = "30000"
+                timerInterval = tmp.toLong()
                 if (timerInterval < 5000) timerInterval = 30000  //must be larger than 5s.
 
                 //get TimeEnable
@@ -190,8 +192,12 @@ class StockInfoViewModel(private val tradeLogRepository:TradeLogRepository) : Vi
         return false
     }
 
-    fun getScreenInfoListByType(sortType:String):List<StockScreenInfo>{
-        return tradeLogRepository.getScreenInfoListByType(sortType)
+    //for SelectedActivity. sortType = "VALUE"
+    fun getScreenInfoListByType(sortType:String) =
+        viewModelScope.launch(Dispatchers.IO) {
+            val stockScreenInfoList = tradeLogRepository.getScreenInfoListByType(sortType)
+            val stockCurrentTradeInfoList = StockScreenInfo.convertScreenInfoListToStockCurrentTradeInfoList(stockScreenInfoList) as MutableList<StockCurrentTradeInfo>
+            _stockCurrentTradeInfoList.postValue(stockCurrentTradeInfoList)
     }
 
 }

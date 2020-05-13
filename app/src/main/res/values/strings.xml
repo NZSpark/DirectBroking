@@ -23,4 +23,11 @@
     <string name="menu_display_mode">NightMode"</string>
     <string name="market_open_time">09:45</string>
     <string name="market_close_time">17:15</string>
+    <string name="user_info_portfolio">Portfolio</string>
+    <string name="user_info_orders">Orders</string>
+    <string name="user_info_account">Account</string>
+    <string name="selected_stocks">Selected</string>
+    <string name="rank_value">Value</string>
+    <string name="rank_change">Change</string>
+    <string name="rank_captial">Captial</string>
 </resources>

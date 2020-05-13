@@ -13,10 +13,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import kotlinx.android.synthetic.main.activity_selected_stock_list.*
 import nz.co.seclib.dbroker.R
-import nz.co.seclib.dbroker.data.model.StockScreenInfo
 import nz.co.seclib.dbroker.ui.sysinfo.SystemConfigActivity
+import nz.co.seclib.dbroker.ui.userinfo.UserInfoManagerActivity
 
 class SelectedStocksActivity : AppCompatActivity(){
     private lateinit var selectStockViewModel: StockInfoViewModel
@@ -35,9 +37,9 @@ class SelectedStocksActivity : AppCompatActivity(){
         val fab: FloatingActionButton = findViewById(R.id.fab)
 
         fab.setOnClickListener { view ->
-            Snackbar.make(view, "Set up system parameters: ", Snackbar.LENGTH_LONG)
-                .setAction("Setup") {
-                    val intent = Intent(this, SystemConfigActivity::class.java)
+            Snackbar.make(view, "User related functions: ", Snackbar.LENGTH_LONG)
+                .setAction("UserInfo") {
+                    val intent = Intent(this, UserInfoManagerActivity::class.java)
                     startActivity(intent)
                 }.show()
         }
@@ -63,6 +65,21 @@ class SelectedStocksActivity : AppCompatActivity(){
             }
         })
 
+        tlSelectedList.addOnTabSelectedListener(object : OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab) {
+                when (tab.position) {
+                    0 -> selectStockViewModel.getSelectedStockList()
+                    1 -> selectStockViewModel.getScreenInfoListByType("VALUE")
+                    2 -> selectStockViewModel.getScreenInfoListByType("PERCENTCHANGE")
+                    3 -> selectStockViewModel.getScreenInfoListByType("MKTCAP")
+                }
+            }
+            override fun onTabUnselected(tab: TabLayout.Tab) {}
+            override fun onTabReselected(tab: TabLayout.Tab) {}
+        })
+
+
+
 
 //        selectStockViewModel.stockCodeList?.observe(this, Observer {
 //            it?.let{
@@ -71,16 +88,10 @@ class SelectedStocksActivity : AppCompatActivity(){
 //        })
 
 
+
         ivRefresh.setOnClickListener {
-           if(bShowSelectedList){
-               bShowSelectedList = false
-               supportActionBar!!.setTitle("All Stocks")
-               adapter.setStocks(StockScreenInfo.convertScreenInfoListToStockCurrentTradeInfoList(selectStockViewModel.getScreenInfoListByType("VALUE")))
-           }else{
-               bShowSelectedList = true
                supportActionBar!!.setTitle("Selected")
                selectStockViewModel.getSelectedStockList()
-           }
         }
 
         ivSearch.setOnClickListener {

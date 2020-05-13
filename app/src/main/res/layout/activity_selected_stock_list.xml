@@ -6,17 +6,50 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TableRow
-        android:id="@+id/tableRow"
-        android:layout_width="378dp"
-        android:layout_height="28dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="20dp"
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tlSelectedList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tiSelected"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/selected_stocks" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tiRankValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/rank_value" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tiRankChange"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/rank_change" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tiRankCapital"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/rank_captial" />
+    </com.google.android.material.tabs.TabLayout>
+
+    <TableRow
+        android:id="@+id/tableRow"
+        android:layout_width="400dp"
+        android:layout_height="22dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tlSelectedList">
 
         <TextView
             android:id="@+id/textView1"
@@ -98,12 +131,12 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvStockList"
-        android:layout_width="360dp"
-        android:layout_height="542dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="20dp"
+        android:layout_width="355dp"
+        android:layout_height="571dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="20dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.557"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tableRow"
         tools:listitem="@layout/recyclerview_stockinfo" />

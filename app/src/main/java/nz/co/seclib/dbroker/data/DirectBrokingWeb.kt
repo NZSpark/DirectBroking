@@ -467,6 +467,7 @@ class DirectBrokingWeb {
     }
 
     //get (rank page/screen page) by rank/sort type
+    //type includs: "VALUE","VOLUME", "PERCENTCHANGE","MKTCAP" (Market Capital)
     fun getScreenPage(sortType : String) :String {
 
         var url = "https://www.directbroking.co.nz/DirectTrade/dynamic/securityviews.aspx?e=NZSE"
@@ -804,4 +805,42 @@ class DirectBrokingWeb {
         return result
     }
 
+
+    //https://www.directbroking.co.nz/DirectTrade/secure/orders.aspx
+    //https://www.directbroking.co.nz/DirectTrade/secure/portfolios.aspx
+    //https://www.directbroking.co.nz/DirectTrade/secure/accounts.aspx?view=bal
+    fun getWebPageByUrl(url:String) :String {
+        var webPage = ""
+
+        fun run(){
+            val request = Request.Builder()
+                .url(url)
+                .build()
+
+            okClient.newCall(request).execute().use {
+                if (!it.isSuccessful){
+                    it.body?.close()
+                    throw  IOException("Unexpected code $it")
+                }
+                webPage = it.body?.string().toString()
+                it.body?.close()
+            }
+
+        }
+
+
+        val thread = Thread(Runnable { run() })
+        thread.start()
+        thread.join()
+
+        return webPage
+    }
+
+    companion object {
+        private val instance = DirectBrokingWeb()
+        @JvmStatic
+        fun newInstance(): DirectBrokingWeb {
+            return instance
+        }
+    }
 }
