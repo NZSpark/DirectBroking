@@ -42,4 +42,23 @@ class UserInfoViewModel (private val  userInfoRepository : UserInfoRepository): 
         _accountList.postValue(userInfoRepository.getAccountInfoList())
     }
 
+    fun actionWithdraw(withdraAmount:String)= viewModelScope.launch(Dispatchers.IO){
+        userInfoRepository.actionWithdraw(withdraAmount)
+    }
+
+    fun actionBuy(stockCode:String,price:String,quantity:String,type:String,date:String)= viewModelScope.launch(Dispatchers.IO){
+        userInfoRepository.actionBuy(stockCode,price,quantity,type,date)
+    }
+
+    fun actionSell(stockCode:String,price:String,quantity:String,type:String,date:String)= viewModelScope.launch(Dispatchers.IO){
+        userInfoRepository.actionSell(stockCode,price,quantity,type,date)
+    }
+
+    fun getCurrentPrice(stockCode:String):String {
+        return userInfoRepository.getCurrentPrice(stockCode)
+    }
+
+    fun actionRequestUrl(url:String)= viewModelScope.launch(Dispatchers.IO){
+        userInfoRepository.actionRequestUrl(url)
+    }
 }

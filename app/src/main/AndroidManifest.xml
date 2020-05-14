@@ -13,8 +13,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApp">
-        <activity android:name=".ui.userinfo.UserInfoManagerActivity"
-            android:label="User Information"></activity>
+        <activity android:name=".ui.userinfo.RequestConfirmActivity"></activity>
+        <activity
+            android:name=".ui.userinfo.UserInfoManagerActivity"
+            android:label="User Information" />
         <activity
             android:name=".ui.sysinfo.SystemConfigActivity"
             android:label="System" />
@@ -36,7 +38,7 @@
             android:label="Stock"
             android:launchMode="singleTop" />
         <activity
-            android:name=".ui.StockChartNZXActivity"
+            android:name=".ui.stockinfo.StockChartNZXActivity"
             android:label="Chart"
             android:launchMode="singleTop">
             <meta-data

@@ -1,22 +1,15 @@
 package nz.co.seclib.dbroker.ui.userinfo
 
 import android.content.Context
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
-import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
-import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
-import nz.co.seclib.dbroker.R
 import com.google.android.material.tabs.TabLayout
-import kotlinx.android.synthetic.main.activity_user_info_manager.*
-import kotlinx.android.synthetic.main.fragment_user_account.*
-import kotlinx.android.synthetic.main.fragment_user_orders.*
-import kotlinx.android.synthetic.main.fragment_user_portfolio.*
+import nz.co.seclib.dbroker.R
 
 class UserInfoManagerActivity : AppCompatActivity() {
 
@@ -34,39 +27,23 @@ class UserInfoManagerActivity : AppCompatActivity() {
 
         val userInfoViewModel = UserInfoViewModelFactory(this.application).create(UserInfoViewModel::class.java)
         tlUserInfo.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            //update user information when clicking the corresponding pages.
             override fun onTabSelected(tab: TabLayout.Tab) {
                 when (tab.position) {
                     0 -> userInfoViewModel.getPortfolioList()
                     1 -> userInfoViewModel.getOrderInfoList()
                     2 -> userInfoViewModel.getAccountInfoList()
                 }
+                return
             }
             override fun onTabUnselected(tab: TabLayout.Tab) {}
             override fun onTabReselected(tab: TabLayout.Tab) {}
         })
 
-        userInfoViewModel.portfolioList.observe(this, Observer { pl->
-            rvPortfolio?.let { rv ->
-                val portfolioAdapter = rv.adapter as PortfolioAdapter
-                portfolioAdapter.setPortfolio(pl)
-            }
-        })
-        userInfoViewModel.accountList.observe(this, Observer { pl->
-            rvAccountInfo?.let { rv ->
-                val accountInfoAdapter = rv.adapter as AccountInfoAdapter
-                accountInfoAdapter.setAccountInfo(pl)
-            }
-        })
-
-        userInfoViewModel.ordersList.observe(this, Observer { pl->
-            rvOrderInfo?.let { rv ->
-                val orderInfoAdapter = rv.adapter as OrderInfoAdapter
-                orderInfoAdapter.setOrderInfo(pl)
-            }
-        })
-
-        //default show portfolio.
+        //defautl page with values.
         userInfoViewModel.getPortfolioList()
+        //userInfoViewModel.getAccountInfoList()
+        //userInfoViewModel.getOrderInfoList()
     }
 
 

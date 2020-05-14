@@ -127,8 +127,8 @@ class LoginActivity : AppCompatActivity() {
 //            }
 //            val intent = Intent(this, SystemConfigActivity::class.java)
             //val intent = Intent(this, SelectedStocksActivity::class.java)
-//            val intent = Intent(this, UserInfoManagerActivity::class.java)
-//            startActivity(intent)
+            //val intent = Intent(this, UserInfoManagerActivity::class.java)
+            //startActivity(intent)
 
             loading.visibility = View.VISIBLE
             loginViewModel.login(username.text.toString(), password.text.toString())
@@ -156,6 +156,7 @@ class LoginActivity : AppCompatActivity() {
 //        ).show()
         //val intent = Intent(this, SystemConfigActivity::class.java)
         val intent = Intent(this, SelectedStocksActivity::class.java)
+        //val intent = Intent(this, UserInfoManagerActivity::class.java)
         startActivity(intent)
     }
 

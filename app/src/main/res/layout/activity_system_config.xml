@@ -33,7 +33,7 @@
                 android:layout_weight="1"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:text="300000" />
+                android:text="30000" />
         </TableRow>
 
         <TableRow
@@ -55,7 +55,7 @@
                 android:layout_weight="1"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:text="3065692" />
+                android:text="3055690" />
         </TableRow>
 
         <TableRow

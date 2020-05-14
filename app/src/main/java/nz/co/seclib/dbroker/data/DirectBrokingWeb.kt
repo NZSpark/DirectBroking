@@ -836,6 +836,216 @@ class DirectBrokingWeb {
         return webPage
     }
 
+
+    //withdraw money from cash account.
+    fun actionWithdrawMoneyFromCashAccount(withdraAmount:String){
+        var url = "https://www.directbroking.co.nz/DirectTrade/secure/withdrawfunds.aspx"
+
+        var viewState = ""
+        var viewValidation = ""
+        var viewStateGenerator = ""
+
+        mCurrentState.webPage = ""
+
+        fun run() {
+
+            //Step 1: get page state.
+            var request = Request.Builder()
+                .url(url)
+                .build()
+
+            okClient.newCall(request).execute().use {
+                if (!it.isSuccessful) {
+                    it.body?.close()
+                    throw  IOException("Unexpected code $it")
+                }
+                val body = it.body?.string()
+                viewState = getValueByTag(body, "__VIEWSTATE")
+                viewValidation = getValueByTag(body, "__EVENTVALIDATION")
+                viewStateGenerator = getValueByTag(body, "__VIEWSTATEGENERATOR")
+                it.body?.close()
+            }
+
+            //Step 2: setup withdraw amount.
+            var formBody = FormBody.Builder()
+                .add("__EVENTTARGET", "CAWithdrawFunds1:btnGoConfirm")
+                .add("__VIEWSTATE", viewState)
+                .add("__VIEWSTATEGENERATOR", viewStateGenerator)
+                .add("__EVENTVALIDATION", viewValidation)
+                .add("CAWithdrawFunds1:FromAccount", ".CMT.NZD")
+                .add("CAWithdrawFunds1:ToAccount", ".SE.01")
+                .add("CAWithdrawFunds1:Amount", withdraAmount)
+                .build()
+
+            request = Request.Builder()
+                .url(url)
+                .post(formBody)
+                .build()
+
+            okClient.newCall(request).execute().use {
+                if (!it.isSuccessful) {
+                    it.body?.close()
+                    throw  IOException("Unexpected code $it")
+                }
+                val body = it.body?.string()
+                viewState = getValueByTag(body, "__VIEWSTATE")
+                viewValidation = getValueByTag(body, "__EVENTVALIDATION")
+                viewStateGenerator = getValueByTag(body, "__VIEWSTATEGENERATOR")
+                it.body?.close()
+            }
+
+            //Step 3: confirm withdraw action.
+            formBody = FormBody.Builder()
+                .add("__EVENTTARGET", "CAWithdrawFunds1:btnConfirm")
+                .add("__VIEWSTATE", viewState)
+                .add("__VIEWSTATEGENERATOR", viewStateGenerator)
+                .add("__EVENTVALIDATION", viewValidation)
+                .build()
+
+            request = Request.Builder()
+                .url(url)
+                .post(formBody)
+                .build()
+
+            okClient.newCall(request).execute().use {
+                if (!it.isSuccessful) {
+                    it.body?.close()
+                    throw  IOException("Unexpected code $it")
+                }
+                val body = it.body?.string()
+                mCurrentState.viewState = getValueByTag(body, "__VIEWSTATE")
+                mCurrentState.viewValidation = getValueByTag(body, "__EVENTVALIDATION")
+                mCurrentState.viewStateGenerator = getValueByTag(body, "__VIEWSTATEGENERATOR")
+                mCurrentState.webPage = body.toString()
+                it.body?.close()
+            }
+
+        }
+
+        val thread = Thread(Runnable { run() })
+        thread.start()
+        thread.join()
+    }
+
+    //place buy/sell order.
+    fun actionOrder(stockCode:String,price:String,quantity:String,type:String,date:String,action:String){
+        var url = "https://www.directbroking.co.nz/DirectTrade/secure/order.aspx?a=" + action
+
+        var viewState = ""
+        var viewValidation = ""
+        var viewStateGenerator = ""
+
+        mCurrentState.webPage = ""
+
+        fun run() {
+
+            //Step 1: get page state.
+            var request = Request.Builder()
+                .url(url)
+                .build()
+
+            okClient.newCall(request).execute().use {
+                if (!it.isSuccessful) {
+                    it.body?.close()
+                    throw  IOException("Unexpected code $it")
+                }
+                val body = it.body?.string()
+                viewState = getValueByTag(body, "__VIEWSTATE")
+                viewValidation = getValueByTag(body, "__EVENTVALIDATION")
+                viewStateGenerator = getValueByTag(body, "__VIEWSTATEGENERATOR")
+                it.body?.close()
+            }
+
+            //Step 2: setup stock code.
+            var formBody = FormBody.Builder()
+                .add("__EVENTTARGET", "btnInstrument")
+                .add("__VIEWSTATE", viewState)
+                .add("__VIEWSTATEGENERATOR", viewStateGenerator)
+                .add("__EVENTVALIDATION", viewValidation)
+                .add("ddlExchangeGroupCode", "NZ")
+                .add("txtSecurityCode", "KMD")
+                .build()
+
+            request = Request.Builder()
+                .url(url)
+                .post(formBody)
+                .build()
+
+            okClient.newCall(request).execute().use {
+                if (!it.isSuccessful) {
+                    it.body?.close()
+                    throw  IOException("Unexpected code $it")
+                }
+                val body = it.body?.string()
+                viewState = getValueByTag(body, "__VIEWSTATE")
+                viewValidation = getValueByTag(body, "__EVENTVALIDATION")
+                viewStateGenerator = getValueByTag(body, "__VIEWSTATEGENERATOR")
+                it.body?.close()
+            }
+
+            //Step 3: setup buy/sell price and quantity.
+            formBody = FormBody.Builder()
+                .add("__EVENTTARGET", "btnGoConfirmOrder")
+                .add("__VIEWSTATE", viewState)
+                .add("__VIEWSTATEGENERATOR", viewStateGenerator)
+                .add("__EVENTVALIDATION", viewValidation)
+                .add("QUANTITY", quantity)
+                .add("LIMIT", price)
+                .add("EXP_WHEN", type)
+                .add("EXP_DATE", date)
+                .build()
+
+            request = Request.Builder()
+                .url(url)
+                .post(formBody)
+                .build()
+
+            okClient.newCall(request).execute().use {
+                if (!it.isSuccessful) {
+                    it.body?.close()
+                    throw  IOException("Unexpected code $it")
+                }
+                val body = it.body?.string()
+                viewState = getValueByTag(body, "__VIEWSTATE")
+                viewValidation = getValueByTag(body, "__EVENTVALIDATION")
+                viewStateGenerator = getValueByTag(body, "__VIEWSTATEGENERATOR")
+                it.body?.close()
+            }
+
+
+            //Step 4: confirm buy/sell action.
+            formBody = FormBody.Builder()
+                .add("__EVENTTARGET", "btnConfirm")
+                .add("__VIEWSTATE", viewState)
+                .add("__VIEWSTATEGENERATOR", viewStateGenerator)
+                .add("__EVENTVALIDATION", viewValidation)
+                .build()
+
+            request = Request.Builder()
+                .url(url)
+                .post(formBody)
+                .build()
+
+            okClient.newCall(request).execute().use {
+                if (!it.isSuccessful) {
+                    it.body?.close()
+                    throw  IOException("Unexpected code $it")
+                }
+                val body = it.body?.string()
+                mCurrentState.viewState = getValueByTag(body, "__VIEWSTATE")
+                mCurrentState.viewValidation = getValueByTag(body, "__EVENTVALIDATION")
+                mCurrentState.viewStateGenerator = getValueByTag(body, "__VIEWSTATEGENERATOR")
+                mCurrentState.webPage = body.toString()
+                it.body?.close()
+            }
+
+        }
+
+        val thread = Thread(Runnable { run() })
+        thread.start()
+        thread.join()
+    }
+
     companion object {
         private val instance = DirectBrokingWeb()
         @JvmStatic

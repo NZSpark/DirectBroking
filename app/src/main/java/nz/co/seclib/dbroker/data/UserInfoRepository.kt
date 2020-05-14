@@ -14,6 +14,27 @@ class UserInfoRepository (private val dbDao: DBrokerDAO, private val dbWeb: Dire
         dbWeb._password = AESEncryption.decrypt(getPropertyValuebyPropertyName("Password")).toString()
     }
 
+    fun actionRequestUrl(url:String) {
+        dbWeb.getWebPageByUrl(url)
+    }
+
+    fun actionBuy(stockCode:String,price:String,quantity:String,type:String,date:String){
+        dbWeb.actionOrder(stockCode,price,quantity,type,date,"buy")
+    }
+
+    fun actionSell(stockCode:String,price:String,quantity:String,type:String,date:String){
+        dbWeb.actionOrder(stockCode,price,quantity,type,date,"sell")
+    }
+
+    fun getCurrentPrice(stockCode:String):String {
+        val currentTradeInfo = dbWeb.getStockInfo(stockCode)
+        return currentTradeInfo?.price.toString()
+    }
+
+    fun actionWithdraw(withdraAmount:String){
+        dbWeb.actionWithdrawMoneyFromCashAccount(withdraAmount)
+    }
+
     fun getOrderInfoList(): List<OrderInfo>{
         //if(!dbWeb.bAuthenticated)
         //    dbWeb.getLoginCookie( dbWeb._username, dbWeb._password )

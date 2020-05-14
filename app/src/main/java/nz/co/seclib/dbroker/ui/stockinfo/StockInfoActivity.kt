@@ -22,7 +22,6 @@ import nz.co.seclib.dbroker.data.AsksTable
 import nz.co.seclib.dbroker.data.BidsTable
 import nz.co.seclib.dbroker.data.CurrentState
 import nz.co.seclib.dbroker.data.TradesTable
-import nz.co.seclib.dbroker.ui.StockChartNZXActivity
 import nz.co.seclib.dbroker.ui.sysinfo.SystemConfigActivity
 
 

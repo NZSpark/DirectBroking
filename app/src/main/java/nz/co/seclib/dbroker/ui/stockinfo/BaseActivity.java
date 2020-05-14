@@ -1,4 +1,4 @@
-package nz.co.seclib.dbroker.ui;
+package nz.co.seclib.dbroker.ui.stockinfo;
 
 import android.app.Activity;
 import android.graphics.Color;

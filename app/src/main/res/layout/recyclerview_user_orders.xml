@@ -8,6 +8,8 @@
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,6 +23,8 @@
                 android:id="@+id/tvOrder1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
                 android:text="Stock Code :"
                 android:textAlignment="viewEnd"
                 android:textStyle="bold" />
@@ -29,6 +33,8 @@
                 android:id="@+id/tvOrderStockCode"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
                 android:text="Code"
                 android:textAlignment="viewEnd" />
         </TableRow>
@@ -41,6 +47,8 @@
                 android:id="@+id/tvOrder2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
                 android:text="Remainning :"
                 android:textAlignment="viewEnd"
                 android:textStyle="bold" />
@@ -49,6 +57,8 @@
                 android:id="@+id/tvOrderRemainning"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
                 android:text="Quantity"
                 android:textAlignment="viewEnd" />
         </TableRow>
@@ -61,6 +71,8 @@
                 android:id="@+id/tvOrder3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
                 android:text="Placed :"
                 android:textAlignment="viewEnd"
                 android:textStyle="bold" />
@@ -69,6 +81,8 @@
                 android:id="@+id/tvOrderPlacedTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
                 android:text="CostPrice"
                 android:textAlignment="viewEnd" />
         </TableRow>
@@ -81,6 +95,8 @@
                 android:id="@+id/tvOrder4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
                 android:text="Expires :"
                 android:textAlignment="viewEnd"
                 android:textStyle="bold" />
@@ -89,6 +105,8 @@
                 android:id="@+id/tvOrderExpireTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
                 android:text="CostValue"
                 android:textAlignment="viewEnd" />
         </TableRow>
@@ -101,6 +119,8 @@
                 android:id="@+id/tvOrder5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
                 android:text="Order Status :"
                 android:textAlignment="viewEnd"
                 android:textStyle="bold" />
@@ -109,6 +129,8 @@
                 android:id="@+id/tvOrderStatus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
                 android:text="MarketPrice"
                 android:textAlignment="viewEnd" />
         </TableRow>
@@ -121,6 +143,8 @@
                 android:id="@+id/tvOrder6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
                 android:text="Order Ref. :"
                 android:textAlignment="viewEnd"
                 android:textStyle="bold" />
@@ -129,6 +153,8 @@
                 android:id="@+id/tvOrderRefNumber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
                 android:text="MarketValue"
                 android:textAlignment="viewEnd" />
         </TableRow>
@@ -141,6 +167,8 @@
                 android:id="@+id/tvOrder7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
                 android:text="Order Number :"
                 android:textAlignment="viewEnd"
                 android:textStyle="bold" />
@@ -149,8 +177,17 @@
                 android:id="@+id/tvOrderOptionsNumber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
                 android:text="MarketValue"
                 android:textAlignment="viewEnd" />
+
+            <ImageView
+                android:id="@+id/ivCancelOrder"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                app:srcCompat="@drawable/ic_clear_black_24dp" />
         </TableRow>
 
 
