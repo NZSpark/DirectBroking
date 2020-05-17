@@ -12,20 +12,26 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.fragment_user_account.*
 import kotlinx.android.synthetic.main.recyclerview_user_account.*
 import nz.co.seclib.dbroker.R
+import nz.co.seclib.dbroker.adapter.AccountInfoAdapter
 import nz.co.seclib.dbroker.utils.MyApplication
+import nz.co.seclib.dbroker.viewmodel.UserInfoViewModel
+import nz.co.seclib.dbroker.viewmodel.UserInfoViewModelFactory
 
 class AccountFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val rvAccountInfo = view.findViewById<RecyclerView>(R.id.rvAccountInfo)
-        val accountInfoAdapter = AccountInfoAdapter(rvAccountInfo.context)
+        val accountInfoAdapter =
+            AccountInfoAdapter(rvAccountInfo.context)
         rvAccountInfo.apply {
             //layoutManager must be set! otherwise adapter doesn't work.
             layoutManager = LinearLayoutManager(rvAccountInfo.context)
             adapter = accountInfoAdapter
         }
 
-        val userInfoViewModel = UserInfoViewModelFactory(MyApplication.instance).create(UserInfoViewModel::class.java)
+        val userInfoViewModel = UserInfoViewModelFactory(
+            MyApplication.instance
+        ).create(UserInfoViewModel::class.java)
         userInfoViewModel.accountList.observe(viewLifecycleOwner, Observer { pl->
             accountInfoAdapter.setAccountInfo(pl)
         })

@@ -16,8 +16,10 @@ import kotlinx.android.synthetic.main.activity_login.*
 
 import nz.co.seclib.dbroker.R
 import nz.co.seclib.dbroker.ui.stockinfo.SelectedStocksActivity
-import nz.co.seclib.dbroker.ui.sysinfo.SystemConfigActivity
-import nz.co.seclib.dbroker.ui.userinfo.UserInfoManagerActivity
+import nz.co.seclib.dbroker.ui.stockinfo.StockInfoActivity
+import nz.co.seclib.dbroker.ui.stockinfo.TradeLogActivity
+import nz.co.seclib.dbroker.viewmodel.LoginViewModel
+import nz.co.seclib.dbroker.viewmodel.LoginViewModelFactory
 
 class LoginActivity : AppCompatActivity() {
 
@@ -47,7 +49,9 @@ class LoginActivity : AppCompatActivity() {
 
 
 
-        loginViewModel = ViewModelProviders.of(this, LoginViewModelFactory(this.application))
+        loginViewModel = ViewModelProviders.of(this,
+            LoginViewModelFactory(this.application)
+        )
                 .get(LoginViewModel::class.java)
 
         loginViewModel.loginFormState.observe(this@LoginActivity, Observer {
@@ -119,6 +123,7 @@ class LoginActivity : AppCompatActivity() {
 //            }
 
         login.setOnClickListener {
+
 //            val intent = Intent(this, StockChartActivity::class.java).apply {
 //                putExtra("STOCKCODE","AIR")
 //            }
@@ -128,7 +133,11 @@ class LoginActivity : AppCompatActivity() {
 //            val intent = Intent(this, SystemConfigActivity::class.java)
             //val intent = Intent(this, SelectedStocksActivity::class.java)
             //val intent = Intent(this, UserInfoManagerActivity::class.java)
-            //startActivity(intent)
+
+//            val intent = Intent(this, TradeLogActivity::class.java).apply {
+//                putExtra("STOCKCODE","KMD")
+//            }
+//            startActivity(intent)
 
             loading.visibility = View.VISIBLE
             loginViewModel.login(username.text.toString(), password.text.toString())

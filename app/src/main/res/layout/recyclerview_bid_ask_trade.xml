@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/tvBidOrderNumber"
+            android:layout_width="20dp"
+            android:layout_height="wrap_content"
+            android:textAlignment="viewEnd"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/tvBidQuantity"
+            android:layout_width="55dp"
+            android:layout_height="wrap_content"
+            android:textAlignment="viewEnd"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/tvBidPrice"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:textAlignment="viewEnd"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvAskPrice"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:textAlignment="viewEnd"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvAskQuantity"
+            android:layout_width="55dp"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:textAlignment="viewEnd"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/tvAskOrderNumber"
+            android:layout_width="20dp"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:textAlignment="viewEnd"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/tvTradePrice"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:textAlignment="viewEnd"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvTradeVolume"
+            android:layout_width="55dp"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:textAlignment="viewEnd"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/tvTradeTime"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:textAlignment="viewEnd"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/tvTradeCondition"
+            android:layout_width="20dp"
+            android:layout_height="wrap_content"
+            android:textAlignment="viewStart"
+            android:textSize="12sp" />
+    </TableRow>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

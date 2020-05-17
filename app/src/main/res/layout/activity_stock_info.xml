@@ -19,22 +19,6 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
         app:srcCompat="@drawable/ic_launcher_background" />
 
-    <TableLayout
-        android:id="@+id/tlStockPrice"
-        android:layout_width="407dp"
-        android:layout_height="343dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:paddingTop="20dp"
-        android:stretchColumns="1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.521"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView">
-
-
-    </TableLayout>
-
     <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="390dp"
@@ -174,47 +158,61 @@
 
     </LinearLayout>
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvStockBidAskTradeInfo"
+        android:layout_width="393dp"
+        android:layout_height="300dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
     <ImageView
         android:id="@+id/ivAdd"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:layout_marginBottom="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="40dp"
         app:layout_constraintEnd_toStartOf="@+id/ivRefresh"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rvStockBidAskTradeInfo"
         app:srcCompat="@drawable/ic_add_circle_outline_black_24dp" />
-
-    <ImageView
-        android:id="@+id/ivRemove"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginBottom="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/ivTradeLog"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/ivRefresh"
-        app:srcCompat="@drawable/ic_remove_circle_outline_black_24dp" />
 
     <ImageView
         android:id="@+id/ivRefresh"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:layout_marginBottom="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/ivAdd"
         app:layout_constraintEnd_toStartOf="@+id/ivRemove"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/ivAdd"
+        app:layout_constraintTop_toTopOf="@+id/ivAdd"
+        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/ic_autorenew_black_24dp" />
 
     <ImageView
         android:id="@+id/ivTradeLog"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:layout_marginBottom="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/ivRemove"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/ivRemove"
+        app:layout_constraintTop_toTopOf="@+id/ivRemove"
+        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/ic_subject_black_24dp" />
+
+    <ImageView
+        android:id="@+id/ivRemove"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        app:layout_constraintBottom_toBottomOf="@+id/ivRefresh"
+        app:layout_constraintEnd_toStartOf="@+id/ivTradeLog"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/ivRefresh"
+        app:layout_constraintTop_toTopOf="@+id/ivRefresh"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/ic_remove_circle_outline_black_24dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

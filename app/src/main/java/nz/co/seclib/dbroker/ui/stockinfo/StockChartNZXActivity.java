@@ -21,7 +21,7 @@ import com.wordplat.ikvstockchart.entry.EntrySet;
 import com.wordplat.ikvstockchart.entry.SizeColor;
 import com.wordplat.ikvstockchart.render.KLineRender;
 import nz.co.seclib.dbroker.R;
-import nz.co.seclib.dbroker.data.NZXWeb;
+import nz.co.seclib.dbroker.data.webdata.NZXWeb;
 
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.ViewInject;
@@ -61,7 +61,7 @@ public class StockChartNZXActivity extends BaseActivity {
 
         //pass stockCode and show it on title bar.
         String stockCode = this.getIntent().getStringExtra("STOCKCODE");
-        getSupportActionBar().setTitle("Chart: " + stockCode);
+        getSupportActionBar().setTitle("Candle Chart : " + stockCode);
 
         initUI();
         loadKLineData(stockCode);
@@ -85,13 +85,14 @@ public class StockChartNZXActivity extends BaseActivity {
                         sizeColor.getMa20Color()));
 
                 String volumeString = String.format(getResources().getString(R.string.volume_highlight),
+                        entry.getVolume(),
                         entry.getVolumeMa5(),
                         entry.getVolumeMa10());
 
                 Volume_Text.setText(getSpannableString(volumeString,
                         sizeColor.getMa5Color(),
                         sizeColor.getMa10Color(),
-                        0));
+                        sizeColor.getMa20Color()));
 
                 SpannableString spanString = new SpannableString("");
                 if (kLineLayout.isShownMACD()) {

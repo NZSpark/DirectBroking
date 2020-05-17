@@ -11,20 +11,26 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.fragment_user_orders.*
 import nz.co.seclib.dbroker.R
+import nz.co.seclib.dbroker.adapter.OrderInfoAdapter
 import nz.co.seclib.dbroker.utils.MyApplication
+import nz.co.seclib.dbroker.viewmodel.UserInfoViewModel
+import nz.co.seclib.dbroker.viewmodel.UserInfoViewModelFactory
 
 class OrdersFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val rvOrderInfo = view.findViewById<RecyclerView>(R.id.rvOrderInfo)
-        val orderInfoAdapter = OrderInfoAdapter(rvOrderInfo.context)
+        val orderInfoAdapter =
+            OrderInfoAdapter(rvOrderInfo.context)
         rvOrderInfo.apply {
             //layoutManager must be set! otherwise adapter doesn't work.
             layoutManager = LinearLayoutManager(rvOrderInfo.context)
             adapter = orderInfoAdapter
         }
 
-        val userInfoViewModel = UserInfoViewModelFactory(MyApplication.instance).create(UserInfoViewModel::class.java)
+        val userInfoViewModel = UserInfoViewModelFactory(
+            MyApplication.instance
+        ).create(UserInfoViewModel::class.java)
         userInfoViewModel.ordersList.observe(viewLifecycleOwner, Observer { pl->
             orderInfoAdapter.setOrderInfo(pl)
         })

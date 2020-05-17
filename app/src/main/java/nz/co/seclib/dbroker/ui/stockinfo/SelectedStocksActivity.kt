@@ -15,10 +15,16 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
+import com.wordplat.easydivider.RecyclerViewCornerRadius
+import com.wordplat.easydivider.RecyclerViewLinearDivider
 import kotlinx.android.synthetic.main.activity_selected_stock_list.*
 import nz.co.seclib.dbroker.R
+import nz.co.seclib.dbroker.adapter.StockListAdapter
 import nz.co.seclib.dbroker.ui.sysinfo.SystemConfigActivity
 import nz.co.seclib.dbroker.ui.userinfo.UserInfoManagerActivity
+import nz.co.seclib.dbroker.utils.AppUtils
+import nz.co.seclib.dbroker.viewmodel.StockInfoViewModel
+import nz.co.seclib.dbroker.viewmodel.StockInfoViewModelFactory
 
 class SelectedStocksActivity : AppCompatActivity(){
     private lateinit var selectStockViewModel: StockInfoViewModel
@@ -31,7 +37,9 @@ class SelectedStocksActivity : AppCompatActivity(){
         setContentView(R.layout.activity_selected_stock_list)
 
         //selectStockViewModel = DBrokerViewModelFactory(this.application).create(DBrokerViewModel::class.java)
-        selectStockViewModel = StockInfoViewModelFactory(this.application).create(StockInfoViewModel::class.java)
+        selectStockViewModel = StockInfoViewModelFactory(
+            this.application
+        ).create(StockInfoViewModel::class.java)
         selectStockViewModel.initWithStockCode("") //initial timer.
 
         val fab: FloatingActionButton = findViewById(R.id.fab)
@@ -45,11 +53,32 @@ class SelectedStocksActivity : AppCompatActivity(){
         }
 
 
-        val recyclerView = findViewById<RecyclerView>(R.id.rvStockList)
+        val rvStockList = findViewById<RecyclerView>(R.id.rvStockList)
         val adapter = StockListAdapter(this)
 
-        recyclerView.adapter = adapter
-        recyclerView.layoutManager = LinearLayoutManager(this)
+        rvStockList.adapter = adapter
+        rvStockList.layoutManager = LinearLayoutManager(this)
+
+        //RecyclerView Decoration---------------------->> begin
+        val cornerRadius = RecyclerViewCornerRadius(rvStockList)
+        cornerRadius.setCornerRadius(AppUtils.dpTopx(this, 10F))
+
+        val linearDivider =
+            RecyclerViewLinearDivider(this, LinearLayoutManager.VERTICAL)
+        linearDivider.setDividerSize(1)
+        linearDivider.setDividerColor(-0x777778)
+        linearDivider.setDividerMargin(
+            AppUtils.dpTopx(this, 10F),
+            AppUtils.dpTopx(this, 10F)
+        )
+        linearDivider.setDividerBackgroundColor(-0x1)
+        linearDivider.setShowHeaderDivider(false)
+        linearDivider.setShowFooterDivider(true)
+
+        // 圆角背景必须第一个添加
+        rvStockList.addItemDecoration(cornerRadius)
+        rvStockList.addItemDecoration(linearDivider)
+        //RecyclerView Decoration --------------------<< end
 
 
         selectStockViewModel.getSelectedStockList()
@@ -98,6 +127,9 @@ class SelectedStocksActivity : AppCompatActivity(){
             val intent = Intent(this, SearchActivity::class.java)
             startActivity(intent)
         }
+
+        //selected list as default show.
+        selectStockViewModel.getSelectedStockList()
 
     }
 

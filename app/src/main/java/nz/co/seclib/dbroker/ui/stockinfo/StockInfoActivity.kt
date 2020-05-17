@@ -15,14 +15,22 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
+import com.wordplat.easydivider.RecyclerViewCornerRadius
+import com.wordplat.easydivider.RecyclerViewLinearDivider
 import kotlinx.android.synthetic.main.activity_stock_info.*
 import nz.co.seclib.dbroker.R
-import nz.co.seclib.dbroker.data.AsksTable
-import nz.co.seclib.dbroker.data.BidsTable
-import nz.co.seclib.dbroker.data.CurrentState
-import nz.co.seclib.dbroker.data.TradesTable
+import nz.co.seclib.dbroker.adapter.StockInfoAdapter
+import nz.co.seclib.dbroker.data.webdata.AsksTable
+import nz.co.seclib.dbroker.data.webdata.BidsTable
+import nz.co.seclib.dbroker.data.webdata.CurrentState
+import nz.co.seclib.dbroker.data.webdata.TradesTable
 import nz.co.seclib.dbroker.ui.sysinfo.SystemConfigActivity
+import nz.co.seclib.dbroker.utils.AppUtils
+import nz.co.seclib.dbroker.viewmodel.StockInfoViewModel
+import nz.co.seclib.dbroker.viewmodel.StockInfoViewModelFactory
 
 
 class StockInfoActivity : AppCompatActivity() {
@@ -47,7 +55,9 @@ class StockInfoActivity : AppCompatActivity() {
 
         val picasso = Picasso.Builder(this).build()
         //stockInfoViewModel = DBrokerViewModelFactory(this.application).create(DBrokerViewModel::class.java)
-        stockInfoViewModel = StockInfoViewModelFactory(this.application).create(StockInfoViewModel::class.java)
+        stockInfoViewModel = StockInfoViewModelFactory(
+            this.application
+        ).create(StockInfoViewModel::class.java)
         stockInfoViewModel.initWithStockCode(stockCode)
 
         stockInfoViewModel.stockCurrentTradeInfo.observe(this, Observer {stockCurrentTradeInfo ->
@@ -67,10 +77,37 @@ class StockInfoActivity : AppCompatActivity() {
             }
         })
 
+        val adapter = StockInfoAdapter(this)
+        rvStockBidAskTradeInfo.layoutManager = LinearLayoutManager(this)
+        rvStockBidAskTradeInfo.adapter = adapter
+
+        //RecyclerView Decoration---------------------->> begin
+        val cornerRadius = RecyclerViewCornerRadius(rvStockBidAskTradeInfo)
+        cornerRadius.setCornerRadius(AppUtils.dpTopx(this, 10F))
+
+        val linearDivider =
+            RecyclerViewLinearDivider(this, LinearLayoutManager.VERTICAL)
+        linearDivider.setDividerSize(1)
+        linearDivider.setDividerColor(-0x777778)
+        linearDivider.setDividerMargin(
+            AppUtils.dpTopx(this, 10F),
+            AppUtils.dpTopx(this, 10F)
+        )
+        linearDivider.setDividerBackgroundColor(-0x1)
+        linearDivider.setShowHeaderDivider(false)
+        linearDivider.setShowFooterDivider(false)
+
+        // 圆角背景必须第一个添加
+        rvStockBidAskTradeInfo.addItemDecoration(cornerRadius)
+        rvStockBidAskTradeInfo.addItemDecoration(linearDivider)
+        //RecyclerView Decoration --------------------<< end
+
+
         stockInfoViewModel.askBidLog.observe(this, Observer { askBidLog ->
-
-            if(askBidLog == null) return@Observer
-
+            askBidLog?.let {
+                adapter.setAskBidLog(askBidLog)
+            }
+            /*
             val tlStockPrice = findViewById<TableLayout>(R.id.tlStockPrice)
             tlStockPrice.removeAllViews()
 
@@ -145,6 +182,7 @@ class StockInfoActivity : AppCompatActivity() {
 
                 tlStockPrice.addView(tableRow)
             }
+             */
         })
 
         imageView.setOnClickListener {

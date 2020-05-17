@@ -2,22 +2,30 @@ package nz.co.seclib.dbroker.ui.stockinfo
 
 import android.content.Intent
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.wordplat.easydivider.RecyclerViewCornerRadius
+import com.wordplat.easydivider.RecyclerViewLinearDivider
 import com.wordplat.ikvstockchart.render.TimeLineRender
 import kotlinx.android.synthetic.main.activity_stock_tradelog.*
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.cancel
 import nz.co.seclib.dbroker.R
+import nz.co.seclib.dbroker.adapter.TradeLogListAdapter
 import nz.co.seclib.dbroker.ui.sysinfo.SystemConfigActivity
+import nz.co.seclib.dbroker.utils.AppUtils
+import nz.co.seclib.dbroker.viewmodel.TradeLogViewModel
+import nz.co.seclib.dbroker.viewmodel.TradeLogViewModelFactory
 
 class TradeLogActivity : AppCompatActivity() , CoroutineScope by MainScope(){
-    private lateinit var stockInfoViewModel: StockInfoViewModel
+    private lateinit var tradeLogViewModel: TradeLogViewModel
 
 
     override fun onDestroy() {
@@ -37,21 +45,48 @@ class TradeLogActivity : AppCompatActivity() , CoroutineScope by MainScope(){
         rvTradeLog.adapter = adapter
         rvTradeLog.layoutManager = LinearLayoutManager(this)
 
-        stockInfoViewModel = StockInfoViewModelFactory(this.application).create(StockInfoViewModel::class.java)
+        //RecyclerView Decoration---------------------->> begin
+        val cornerRadius = RecyclerViewCornerRadius(rvTradeLog)
+        cornerRadius.setCornerRadius(AppUtils.dpTopx(this, 10F))
+
+        val linearDivider =
+            RecyclerViewLinearDivider(this, LinearLayoutManager.VERTICAL)
+        linearDivider.setDividerSize(1)
+        linearDivider.setDividerColor(-0x777778)
+        linearDivider.setDividerMargin(
+            AppUtils.dpTopx(this, 10F),
+            AppUtils.dpTopx(this, 10F)
+        )
+        linearDivider.setDividerBackgroundColor(-0x1)
+        linearDivider.setShowHeaderDivider(false)
+        linearDivider.setShowFooterDivider(false)
+
+        // 圆角背景必须第一个添加
+        rvTradeLog.addItemDecoration(cornerRadius)
+        rvTradeLog.addItemDecoration(linearDivider)
+        //RecyclerView Decoration --------------------<< end
+
+        tradeLogViewModel = TradeLogViewModelFactory(
+            this.application
+        ).create(TradeLogViewModel::class.java)
 //      tradeLogViewModel = ViewModelProviders.of(this, TradeLogViewModelFactory(this.application))
 //            .get(TradeLogViewModel::class.java)
 
-        stockInfoViewModel.initWithStockCode(stockCode)
 
-        stockInfoViewModel.tradeLogList.observe(this, Observer {
+        tradeLogViewModel.tradeLogList.observe(this, Observer {
             adapter.setTradeLog(it)
         })
 
-        stockInfoViewModel.entrySet.observe(this, Observer {entrySet ->
+        tradeLogViewModel.entrySet.observe(this, Observer { entrySet ->
             klTrade.setEntrySet(entrySet)
             klTrade.render = TimeLineRender()
             klTrade.notifyDataSetChanged()
         })
+
+        //if only handle local data, then common init should be comment out.
+        //stockInfoViewModel.initWithStockCode(stockCode)
+        //initTradeLogActivity is included in initWithStockCode, only one of them should be invoked.
+        tradeLogViewModel.initTradeLogActivity(stockCode)
 
     }
 

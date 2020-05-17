@@ -16,6 +16,8 @@ import nz.co.seclib.dbroker.ui.stockinfo.SelectedStocksActivity
 import nz.co.seclib.dbroker.ui.stockinfo.StockInfoActivity
 import nz.co.seclib.dbroker.ui.stockinfo.TradeLogActivity
 import nz.co.seclib.dbroker.utils.AESEncryption
+import nz.co.seclib.dbroker.viewmodel.SystemConfigViewModel
+import nz.co.seclib.dbroker.viewmodel.SystemConfigViewModelFactory
 
 class SystemConfigActivity : AppCompatActivity() , CoroutineScope by MainScope(){
     private lateinit var systemConfigViewModel: SystemConfigViewModel
@@ -26,7 +28,10 @@ class SystemConfigActivity : AppCompatActivity() , CoroutineScope by MainScope()
 
         //val etTimerInterval = findViewById<EditText>(R.id.etTimerInterval)
 
-        systemConfigViewModel = SystemConfigViewModelFactory(this.application).create(SystemConfigViewModel::class.java)
+        systemConfigViewModel = SystemConfigViewModelFactory(
+            this.application
+        ).create(
+            SystemConfigViewModel::class.java)
 
         systemConfigViewModel.timerInterval.observe(this, Observer {
             etTimerInterval.setText(it)

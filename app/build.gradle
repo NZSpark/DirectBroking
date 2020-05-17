@@ -78,6 +78,8 @@ dependencies {
 //StockChart, use java directly from ikv author.
 //    implementation 'com.wordplat:ikvStockChart:0.1.5'
     implementation project(":ikvStockChart")
+    implementation project(path: ':EasyDivider')
+
     implementation 'com.readystatesoftware.systembartint:systembartint:1.0.3'
     implementation 'org.xutils:xutils:3.3.36'
     implementation 'com.android.support:multidex:1.0.1'
@@ -85,5 +87,6 @@ dependencies {
     //implementation 'com.alibaba:fastjson:1.1.46.android'
 
     implementation 'org.jsoup:jsoup:1.13.1'
+
 
 }

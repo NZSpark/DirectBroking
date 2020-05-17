@@ -1,7 +1,6 @@
 package nz.co.seclib.dbroker.ui.userinfo
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -10,6 +9,8 @@ import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 import nz.co.seclib.dbroker.R
+import nz.co.seclib.dbroker.viewmodel.UserInfoViewModel
+import nz.co.seclib.dbroker.viewmodel.UserInfoViewModelFactory
 
 class UserInfoManagerActivity : AppCompatActivity() {
 
@@ -25,7 +26,9 @@ class UserInfoManagerActivity : AppCompatActivity() {
         val tlUserInfo = findViewById<TabLayout>(R.id.tlUserInfo)
         tlUserInfo.setupWithViewPager(vpUserInfo)
 
-        val userInfoViewModel = UserInfoViewModelFactory(this.application).create(UserInfoViewModel::class.java)
+        val userInfoViewModel = UserInfoViewModelFactory(
+            this.application
+        ).create(UserInfoViewModel::class.java)
         tlUserInfo.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             //update user information when clicking the corresponding pages.
             override fun onTabSelected(tab: TabLayout.Tab) {
