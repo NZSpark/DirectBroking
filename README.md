@@ -12,3 +12,8 @@ App uses account number and password as the authentication credential to communi
 
 Direct Broking has access restriction policy, please obey it. 
 Any risk/lost using this software is accountable by yourself.
+
+![Login](https://github.com/NZSpark/DBroker/blob/master/snapshot/Login.png)
+![Candle Chart](https://github.com/NZSpark/DBroker/blob/master/snapshot/StockCandleChart.png)
+![Stock Depth Data](https://github.com/NZSpark/DBroker/blob/master/snapshot/StockInfoInOnePage.png)
+![Place Buy/Sell Orders](https://github.com/NZSpark/DBroker/blob/master/snapshot/PlaceBuySellOrders.png)
