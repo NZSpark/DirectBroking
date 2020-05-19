@@ -10,7 +10,7 @@
 
 
     <TextView
-        android:id="@+id/tvStockCode"
+        android:id="@+id/tvSelectedListStockCode"
         android:layout_width="40dp"
         android:layout_height="wrap_content"
         android:paddingLeft="5dp"

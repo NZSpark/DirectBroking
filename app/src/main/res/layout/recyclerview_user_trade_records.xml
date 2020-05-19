@@ -2,16 +2,13 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginBottom="50dp">
+    android:layout_height="wrap_content">
 
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -20,47 +17,18 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/tvOrder1"
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
-                android:text="Stock Code :"
+                android:text="@string/stock_code"
                 android:textAlignment="viewEnd"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/tvOrderStockCode"
+                android:id="@+id/tvTradeRecordsStockCode"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
-                android:text="Code"
-                android:textAlignment="viewEnd"
-                android:textStyle="italic" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/tvOrder2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
-                android:text="Remainning :"
-                android:textAlignment="viewEnd"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tvOrderRemainning"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
-                android:text="Quantity"
+                android:text=""
                 android:textAlignment="viewEnd" />
         </TableRow>
 
@@ -69,22 +37,18 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/tvOrder3"
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
-                android:text="Placed :"
+                android:text="@string/date"
                 android:textAlignment="viewEnd"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/tvOrderPlacedTime"
+                android:id="@+id/tvTradeRecordsDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
-                android:text="CostPrice"
+                android:text=""
                 android:textAlignment="viewEnd" />
         </TableRow>
 
@@ -93,22 +57,18 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/tvOrder4"
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
-                android:text="Expires :"
+                android:text="@string/action"
                 android:textAlignment="viewEnd"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/tvOrderExpireTime"
+                android:id="@+id/tvTradeRecordsAction"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
-                android:text="CostValue"
+                android:text=""
                 android:textAlignment="viewEnd" />
         </TableRow>
 
@@ -117,22 +77,18 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/tvOrder5"
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
-                android:text="Order Status :"
+                android:text="@string/quantity"
                 android:textAlignment="viewEnd"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/tvOrderStatus"
+                android:id="@+id/tvTradeRecordsQuantity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
-                android:text="MarketPrice"
+                android:text=""
                 android:textAlignment="viewEnd" />
         </TableRow>
 
@@ -141,22 +97,18 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/tvOrder6"
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
-                android:text="Order Ref. :"
+                android:text="@string/price"
                 android:textAlignment="viewEnd"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/tvOrderRefNumber"
+                android:id="@+id/tvTradeRecordsPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
-                android:text="MarketValue"
+                android:text=""
                 android:textAlignment="viewEnd" />
         </TableRow>
 
@@ -165,32 +117,79 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/tvOrder7"
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
-                android:text="Order Number :"
+                android:text="@string/value"
                 android:textAlignment="viewEnd"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/tvOrderOptionsNumber"
+                android:id="@+id/tvTradeRecordsValue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
-                android:text="MarketValue"
+                android:text=""
                 android:textAlignment="viewEnd" />
-
-            <ImageView
-                android:id="@+id/ivCancelOrder"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                app:srcCompat="@drawable/ic_clear_black_24dp" />
         </TableRow>
 
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/settlement"
+                android:textAlignment="viewEnd"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvTradeRecordsSettlement"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textAlignment="viewEnd" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/due_date"
+                android:textAlignment="viewEnd"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvTradeRecordsDueDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textAlignment="viewEnd" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/status"
+                android:textAlignment="viewEnd"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvTradeRecordsStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textAlignment="viewEnd" />
+        </TableRow>
 
     </TableLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

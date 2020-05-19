@@ -266,6 +266,70 @@ data class Portfolio(
 }
 
 
+@Entity (
+    tableName = "TradeRecords",
+    primaryKeys = arrayOf("userID","stockCode","date","action","quantity","price")
+)
+data class TradeRecords(
+    var userID:String = "",
+    var stockCode: String = "",
+    var date : String = "",
+    var action: String = "",
+    var quantity:String = "",
+    var price:String = "",
+    var value:String = "",
+    var settlement:String= "",
+    var dueDate:String= "",
+    var status:String= ""
+){
+    companion object {
+        fun getTradeRecordsListFromString(htmlData: String): List<TradeRecords> {
+            val tradeRecordsList = mutableListOf<TradeRecords>()
 
+            val document = Jsoup.parse(htmlData)
+            val tableRows = document.select("div[id=panTrades] tr")
+
+            if(tableRows.size > 1) {
+                tableRows.removeAt(0)
+                tableRows.removeAt(0)
+                tableRows.removeAt(0)
+            }
+
+            println("DEBUG: " + tableRows.size)
+            for (row in tableRows) {
+                var tradeRecords = TradeRecords()
+                val tds = row.getElementsByTag("td")
+                println("DEBUG: " + tds.size)
+                if (tds.size < 11) continue
+
+                tradeRecords.stockCode =
+                    tds.first().text().replace("\u00a0".toRegex(), "").trim { it <= ' ' }
+
+                if (tradeRecords.stockCode.contentEquals("Code")) {
+                    println("skipping title row")
+                    continue
+                }
+                tradeRecords.date =
+                    tds[1].text().replace("\u00a0".toRegex(), "").trim { it <= ' ' }
+                tradeRecords.action =
+                    tds[2].text().replace("\u00a0".toRegex(), "").trim { it <= ' ' }
+                tradeRecords.quantity =
+                    tds[3].text().replace("\u00a0".toRegex(), "").trim { it <= ' ' }
+                tradeRecords.price =
+                    tds[4].text().replace("\u00a0".toRegex(), "").trim { it <= ' ' }
+                tradeRecords.value =
+                    tds[5].text().replace("\u00a0".toRegex(), "").trim { it <= ' ' }
+                tradeRecords.settlement =
+                    tds[7].text().replace("\u00a0".toRegex(), "").trim { it <= ' ' }
+                tradeRecords.dueDate =
+                    tds[9].text().replace("\u00a0".toRegex(), "").trim { it <= ' ' }
+                tradeRecords.status =
+                    tds[10].text().replace("\u00a0".toRegex(), "").trim { it <= ' ' }
+                tradeRecordsList.add(tradeRecords)
+            }
+            return tradeRecordsList.reversed()
+        }
+    }
+}
 
 

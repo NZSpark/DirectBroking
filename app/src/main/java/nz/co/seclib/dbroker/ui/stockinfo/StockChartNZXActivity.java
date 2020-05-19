@@ -166,7 +166,8 @@ public class StockChartNZXActivity extends BaseActivity {
                 final KLineRender kLineRender = (KLineRender) kLineLayout.getKLineView().getRender();
 
                 if (kLineRender.getKLineRect().contains(x, y)) {
-                    Toast.makeText(mActivity, "single tab [" + x + ", " + y + "]", Toast.LENGTH_SHORT).show();
+                    kLineRender.zoomOut(x, y);
+                    //Toast.makeText(mActivity, "single tap [" + x + ", " + y + "]", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -192,15 +193,18 @@ public class StockChartNZXActivity extends BaseActivity {
 
                         List<Entry> entries = insertEntries();
 
+
+                        if (entries.size() == 0) {
+                            Toast.makeText(mActivity, "已经到达最左边了", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
                         kLineLayout.getKLineView().getRender().getEntrySet().insertFirst(entries);
                         kLineLayout.getKLineView().notifyDataSetChanged();
                         kLineLayout.getKLineView().refreshComplete(entries.size() > 0);
 
-                        if (entries.size() == 0) {
-                            Toast.makeText(mActivity, "已经到达最左边了", Toast.LENGTH_SHORT).show();
-                        }
                     }
-                }, 1000);
+                }, 100);
             }
 
             @Override
@@ -215,16 +219,16 @@ public class StockChartNZXActivity extends BaseActivity {
                         ((Animatable) Right_Loading_Image.getDrawable()).start();
 
                         List<Entry> entries = addEntries();
+                        if (entries.size() == 0) {
+                            Toast.makeText(mActivity, "已经到达最右边了", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
 
                         kLineLayout.getKLineView().getRender().getEntrySet().addEntries(entries);
                         kLineLayout.getKLineView().notifyDataSetChanged();
                         kLineLayout.getKLineView().refreshComplete(entries.size() > 0);
-
-                        if (entries.size() == 0) {
-                            Toast.makeText(mActivity, "已经到达最右边了", Toast.LENGTH_SHORT).show();
-                        }
                     }
-                }, 1000);
+                }, 100);
             }
         });
     }
@@ -341,8 +345,10 @@ public class StockChartNZXActivity extends BaseActivity {
         int insertCount = 0;
         for (int i = loadStartPos ; i > loadStartPos - loadCount && i > -1 ; i--) {
             insertCount++;
-
-            entries.add(entrySet.getEntryList().get(i));
+            if(entrySet.getEntryList().size() > i )
+                        entries.add(entrySet.getEntryList().get(i));
+            else
+                break;
         }
         loadStartPos -= insertCount;
 

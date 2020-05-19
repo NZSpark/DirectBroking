@@ -1,13 +1,16 @@
 package nz.co.seclib.dbroker.ui.stockinfo
 
+import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.text.Html
 import android.view.Menu
 import android.view.MenuItem
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.text.parseAsHtml
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.wordplat.easydivider.RecyclerViewCornerRadius
@@ -78,11 +81,22 @@ class TradeLogActivity : AppCompatActivity() , CoroutineScope by MainScope(){
         })
 
         tradeLogViewModel.entrySet.observe(this, Observer { entrySet ->
+            //x-axis lable, it's fixed in TimeLineRender.
+            if(entrySet.entryList.size > 5) {
+                entrySet.entryList[0].xLabel = "10:00"
+                entrySet.entryList[1].xLabel = "11:45"
+                entrySet.entryList[2].xLabel = "13:30"
+                entrySet.entryList[3].xLabel = "15:15"
+                entrySet.entryList[4].xLabel = "17:00"
+            }
             klTrade.setEntrySet(entrySet)
             klTrade.render = TimeLineRender()
             klTrade.notifyDataSetChanged()
         })
 
+        tradeLogViewModel.companyAnalysis.observe(this, Observer {
+            tvCompanyAnalysis.text = Html.fromHtml(it, Html.FROM_HTML_MODE_COMPACT)
+        })
         //if only handle local data, then common init should be comment out.
         //stockInfoViewModel.initWithStockCode(stockCode)
         //initTradeLogActivity is included in initWithStockCode, only one of them should be invoked.

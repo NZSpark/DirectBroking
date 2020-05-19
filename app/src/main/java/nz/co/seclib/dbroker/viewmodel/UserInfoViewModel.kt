@@ -10,6 +10,7 @@ import nz.co.seclib.dbroker.data.repository.UserInfoRepository
 import nz.co.seclib.dbroker.data.database.AccountInfo
 import nz.co.seclib.dbroker.data.database.OrderInfo
 import nz.co.seclib.dbroker.data.database.Portfolio
+import nz.co.seclib.dbroker.data.database.TradeRecords
 
 class UserInfoViewModel (private val  userInfoRepository : UserInfoRepository): ViewModel() {
     private val _portfolioList = MutableLiveData<List<Portfolio>>()
@@ -21,6 +22,8 @@ class UserInfoViewModel (private val  userInfoRepository : UserInfoRepository): 
     private val _accountList = MutableLiveData<List<AccountInfo>>()
     val accountList : LiveData<List<AccountInfo>> = _accountList
 
+    private val _tradeRecordsList = MutableLiveData<List<TradeRecords>>()
+    val tradeRecordsList : LiveData<List<TradeRecords>> = _tradeRecordsList
 
 //    init{
 //        viewModelScope.launch(Dispatchers.IO) {
@@ -35,6 +38,10 @@ class UserInfoViewModel (private val  userInfoRepository : UserInfoRepository): 
 
     fun getOrderInfoList()= viewModelScope.launch(Dispatchers.IO) {
         _ordersList.postValue(userInfoRepository.getOrderInfoList())
+    }
+
+    fun getTradeRecordsList()= viewModelScope.launch(Dispatchers.IO) {
+        _tradeRecordsList.postValue(userInfoRepository.getTradeRecordsList())
     }
 
     fun getAccountInfoList()= viewModelScope.launch(Dispatchers.IO) {

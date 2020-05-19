@@ -19,7 +19,7 @@ import com.wordplat.easydivider.RecyclerViewCornerRadius
 import com.wordplat.easydivider.RecyclerViewLinearDivider
 import kotlinx.android.synthetic.main.activity_selected_stock_list.*
 import nz.co.seclib.dbroker.R
-import nz.co.seclib.dbroker.adapter.StockListAdapter
+import nz.co.seclib.dbroker.adapter.SelectedStockListAdapter
 import nz.co.seclib.dbroker.ui.sysinfo.SystemConfigActivity
 import nz.co.seclib.dbroker.ui.userinfo.UserInfoManagerActivity
 import nz.co.seclib.dbroker.utils.AppUtils
@@ -54,7 +54,7 @@ class SelectedStocksActivity : AppCompatActivity(){
 
 
         val rvStockList = findViewById<RecyclerView>(R.id.rvStockList)
-        val adapter = StockListAdapter(this)
+        val adapter = SelectedStockListAdapter(this)
 
         rvStockList.adapter = adapter
         rvStockList.layoutManager = LinearLayoutManager(this)
@@ -131,6 +131,19 @@ class SelectedStocksActivity : AppCompatActivity(){
         //selected list as default show.
         selectStockViewModel.getSelectedStockList()
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        //selected list as default show.
+//        val adapter = rvStockList.adapter as SelectedStockListAdapter
+//        adapter.setStocks(selectStockViewModel.stockCurrentTradeInfoList.value ?: emptyList())
+        when (tlSelectedList.selectedTabPosition) {
+            0 -> selectStockViewModel.getSelectedStockList()
+            1 -> selectStockViewModel.getScreenInfoListByType("VALUE")
+            2 -> selectStockViewModel.getScreenInfoListByType("PERCENTCHANGE")
+            3 -> selectStockViewModel.getScreenInfoListByType("MKTCAP")
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

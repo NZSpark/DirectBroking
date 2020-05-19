@@ -19,11 +19,28 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvTradeLog"
         android:layout_width="379dp"
-        android:layout_height="456dp"
+        android:layout_height="286dp"
         android:layout_marginTop="32dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/klTrade"
         tools:listitem="@layout/recyclerview_tradelog" />
+
+    <ScrollView
+        android:layout_width="365dp"
+        android:layout_height="168dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.6"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rvTradeLog"
+        app:layout_constraintVertical_bias="0.426">
+
+        <TextView
+            android:id="@+id/tvCompanyAnalysis"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </ScrollView>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

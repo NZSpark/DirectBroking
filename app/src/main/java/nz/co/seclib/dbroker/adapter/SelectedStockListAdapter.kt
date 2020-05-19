@@ -12,9 +12,9 @@ import nz.co.seclib.dbroker.R
 import nz.co.seclib.dbroker.data.database.StockCurrentTradeInfo
 import nz.co.seclib.dbroker.ui.stockinfo.StockInfoActivity
 
-class StockListAdapter  internal constructor(
+class SelectedStockListAdapter  internal constructor(
     context: Context
-) : RecyclerView.Adapter<StockListAdapter.StockInfoViewHolder>() {
+) : RecyclerView.Adapter<SelectedStockListAdapter.StockInfoViewHolder>() {
 
     private val inflater: LayoutInflater = LayoutInflater.from(context)
     //private var stocks = mutableListOf<StockCurrentTradeInfo>() // Cached copy of words
@@ -22,7 +22,7 @@ class StockListAdapter  internal constructor(
 
 
     inner class StockInfoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val tvStockCode: TextView  = itemView.findViewById(R.id.tvStockCode)
+        val tvSelectedListStockCode: TextView  = itemView.findViewById(R.id.tvSelectedListStockCode)
         val tvPercent: TextView = itemView.findViewById(R.id.tvTradePercent)
         //val tvFirst: TextView  = itemView.findViewById(R.id.tvTradeFirst)
         val tvPrice: TextView  = itemView.findViewById(R.id.tvTradePrice)
@@ -37,7 +37,8 @@ class StockListAdapter  internal constructor(
         itemView.setOnClickListener {
             val intent = Intent(it.context,
                 StockInfoActivity::class.java).apply {
-                putExtra("STOCKCODE",it.findViewById<TextView>(R.id.tvStockCode).text.toString())
+                val stockCode = it.findViewById<TextView>(R.id.tvSelectedListStockCode).text.toString()
+                putExtra("STOCKCODE",stockCode)
             }
             startActivity(it.context,intent,null)
         }
@@ -46,7 +47,7 @@ class StockListAdapter  internal constructor(
 
     override fun onBindViewHolder(holder: StockInfoViewHolder, position: Int) {
         val currentStock = stocks[position]
-        holder.tvStockCode.text = currentStock.stockCode
+        holder.tvSelectedListStockCode.text = currentStock.stockCode
         holder.tvPercent.text = currentStock.change
         //holder.tvFirst.text = currentStock.sFirst
         holder.tvPrice.text = currentStock.price

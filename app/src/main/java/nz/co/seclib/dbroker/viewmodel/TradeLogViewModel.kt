@@ -19,6 +19,10 @@ class TradeLogViewModel(private val nzxRepository: NZXRepository) : ViewModel(){
     val tradeLogList: LiveData<List<TradeLog>> = _tradeLogList
     private val _entrySet = MutableLiveData<EntrySet>()
     val entrySet : LiveData<EntrySet> = _entrySet
+
+    private val _companyAnalysis = MutableLiveData<String>()
+    val companyAnalysis : LiveData<String> = _companyAnalysis
+
     //for TradeLogActivity ----end
 
 
@@ -90,12 +94,15 @@ class TradeLogViewModel(private val nzxRepository: NZXRepository) : ViewModel(){
     fun initTradeLogActivity(stockCode: String) = viewModelScope.launch(Dispatchers.IO) {
         val todayTradeList = nzxRepository.getTodayTradeLog(stockCode).reversed()
         //val todayTradeList = nzxRepository.getTradeLogByTime("2020-05-15 ","2020-05-15+",stockCode).reversed()
-            _tradeLogList.postValue(todayTradeList)
+
+        _tradeLogList.postValue(todayTradeList)
+        _companyAnalysis.postValue(nzxRepository.getCompanyAnalysisByStockCode(stockCode))
 
         //_entrySet.postValue(nzxRepository.copyTradeLogListToEntrySet(todayTradeList))
 
-        _entrySet.postValue(nzxRepository.getIntraDayEntrySetByStockCode(stockCode))
-        //_entrySet.postValue(nzxRepository.convertTradeLogListToEntrySetByInterval(todayTradeList,5))
+        //_entrySet.postValue(nzxRepository.getIntraDayEntrySetByStockCode(stockCode))
+        //_entrySet.postValue(nzxRepository.getTodayIntraEntrySet(stockCode))
+        _entrySet.postValue(nzxRepository.expandEntrySet( nzxRepository.convertTradeLogListToEntrySetByInterval(todayTradeList,1,"TimeLine")))
     }
 
 }

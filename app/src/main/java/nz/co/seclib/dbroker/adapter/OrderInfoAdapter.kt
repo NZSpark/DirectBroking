@@ -2,15 +2,18 @@ package nz.co.seclib.dbroker.adapter
 
 import android.content.Context
 import android.content.DialogInterface
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import nz.co.seclib.dbroker.R
 import nz.co.seclib.dbroker.data.database.OrderInfo
+import nz.co.seclib.dbroker.ui.stockinfo.StockInfoActivity
 import nz.co.seclib.dbroker.utils.MyApplication
 import nz.co.seclib.dbroker.viewmodel.UserInfoViewModel
 import nz.co.seclib.dbroker.viewmodel.UserInfoViewModelFactory
@@ -48,6 +51,12 @@ class OrderInfoAdapter  internal constructor(
     override fun onBindViewHolder(holder: OrderInfoViewHolder, position: Int) {
         val orderInfo = orderInfoList[position]
         holder.tvOrderStockCode.text = orderInfo.stockCode
+        holder.tvOrderStockCode.setOnClickListener {
+            val intent = Intent(it.context, StockInfoActivity::class.java).apply {
+                putExtra("STOCKCODE",holder.tvOrderStockCode.text.toString().replace(".NZ",""))
+            }
+            startActivity(it.context,intent,null)
+        }
         holder.tvOrderRemainning.text = orderInfo.remainning
         holder.tvOrderPlacedTime.text = orderInfo.placedTime
         holder.tvOrderExpireTime.text = orderInfo.expiresTime

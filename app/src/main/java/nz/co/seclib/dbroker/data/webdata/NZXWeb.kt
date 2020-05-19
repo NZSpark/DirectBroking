@@ -62,18 +62,24 @@ class NZXWeb {
         val entrySet = EntrySet()
         for (intraDayInfo in intraDayInfoList) {
             if( intraDayInfo.price < 0.001 ) continue
-            entrySet.addEntry(
-                Entry(
-                    intraDayInfo.price,
-                    intraDayInfo.volume,
-                    intraDayInfo.time
+            //split 5 mins into 5 * 1 mins
+            val newVolume = (intraDayInfo.volume/5)
+            for(i in 0..4){
+
+                entrySet.addEntry(
+                    Entry(
+                        intraDayInfo.price,
+                        newVolume,
+                        intraDayInfo.time
+                    )
                 )
-            )
+            }
         }
         return entrySet
     }
 
     fun convertJsonToIntradayInfoList(inString:String) : List<NZXIntraDayInfo> {
+        if(inString.length < 1) return emptyList()
         val gson = Gson()
         val type: Type = object : TypeToken<List<NZXIntraDayInfo>?>() {}.getType()
         return gson.fromJson(inString, type)
@@ -92,6 +98,43 @@ class NZXWeb {
             it.body?.close()
         }
         return jsonString
+    }
+
+    fun getCompanyAnalysisByStockCode(stockCode: String):String{
+        val url = "https://www.nzx.com/companies/"+stockCode+"/analysis"
+        return extractAnalysisFromWebPage(getWebPageByUrl(url))
+    }
+
+    fun extractAnalysisFromWebPage(webPage:String):String{
+        var analysis = ""
+
+        val startString = "<div class=\"small-12 medium-9 columns content\">"
+        val endString = "<section>"
+
+        if(webPage.length < startString.length) return ""
+        var iStartPos = webPage.indexOf(startString)
+        if(iStartPos < 0 ) return ""
+        iStartPos += startString.length
+        val iEndPos = webPage.indexOf(endString,iStartPos)
+        if(iEndPos < 0 ) return ""
+
+        analysis = webPage.substring(iStartPos,iEndPos).replace("\r\n","<br>")
+
+        return analysis.replace("\n","<br>")
+    }
+
+    //get web pagefrom NZX.
+    fun getWebPageByUrl(url:String) : String {
+        var webPage = ""
+        var request = Request.Builder()
+            .url(url)
+            .build()
+
+        okClient.newCall(request).execute().use {
+            webPage = it.body?.string().toString()
+            it.body?.close()
+        }
+        return webPage
     }
 
     companion object {

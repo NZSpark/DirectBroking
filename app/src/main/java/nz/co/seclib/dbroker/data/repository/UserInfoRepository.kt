@@ -1,11 +1,8 @@
 package nz.co.seclib.dbroker.data.repository
 
+import nz.co.seclib.dbroker.data.database.*
 import nz.co.seclib.dbroker.data.webdata.CurrentState
-import nz.co.seclib.dbroker.data.database.DBrokerDAO
 import nz.co.seclib.dbroker.data.webdata.DirectBrokingWeb
-import nz.co.seclib.dbroker.data.database.AccountInfo
-import nz.co.seclib.dbroker.data.database.OrderInfo
-import nz.co.seclib.dbroker.data.database.Portfolio
 import nz.co.seclib.dbroker.utils.AESEncryption
 
 class UserInfoRepository (private val dbDao: DBrokerDAO, private val dbWeb: DirectBrokingWeb) {
@@ -46,6 +43,16 @@ class UserInfoRepository (private val dbDao: DBrokerDAO, private val dbWeb: Dire
         val orderInfoList = OrderInfo.getOrderInfoListFromString(orderInfoWebPage)
         return orderInfoList
     }
+
+    fun getTradeRecordsList(): List<TradeRecords>{
+//        if(!dbWeb.bAuthenticated)
+//            dbWeb.getLoginCookie( dbWeb._username, dbWeb._password )
+        val url = "https://www.directbroking.co.nz/DirectTrade/secure/trades.aspx"
+        val tradeRecordsWebPage = dbWeb.getWebPageByUrl(url)
+        val tradeRecordsList = TradeRecords.getTradeRecordsListFromString(tradeRecordsWebPage)
+        return tradeRecordsList
+    }
+
 
     fun getAccountInfoList(): List<AccountInfo>{
 //        if(!dbWeb.bAuthenticated)

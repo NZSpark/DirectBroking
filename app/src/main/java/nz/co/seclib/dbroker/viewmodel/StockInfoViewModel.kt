@@ -15,10 +15,10 @@ import nz.co.seclib.dbroker.data.database.*
 @RequiresApi(Build.VERSION_CODES.O)
 class StockInfoViewModel(private val tradeLogRepository: TradeLogRepository) : ViewModel(){
     //for TradeLogActivity ----begin
-    private val _tradeLogList = MutableLiveData<List<TradeLog>>()
-    val tradeLogList: LiveData<List<TradeLog>> = _tradeLogList
-    private val _entrySet = MutableLiveData<EntrySet>()
-    val entrySet : LiveData<EntrySet> = _entrySet
+//    private val _tradeLogList = MutableLiveData<List<TradeLog>>()
+//    val tradeLogList: LiveData<List<TradeLog>> = _tradeLogList
+//    private val _entrySet = MutableLiveData<EntrySet>()
+//    val entrySet : LiveData<EntrySet> = _entrySet
     //for TradeLogActivity ----end
 
     //for SelectedStocksActivity --begin
@@ -26,6 +26,7 @@ class StockInfoViewModel(private val tradeLogRepository: TradeLogRepository) : V
     private var password = ""
     private val _stockCurrentTradeInfoList = MutableLiveData<MutableList<StockCurrentTradeInfo>>()
     val stockCurrentTradeInfoList : LiveData<List<StockCurrentTradeInfo>> = _stockCurrentTradeInfoList as LiveData<List<StockCurrentTradeInfo>>
+    private var selectedStockCodeList = listOf<String>()
     //for SelectedStocksActivity --end
 
     //for StockInfoActivity ----begin
@@ -40,7 +41,7 @@ class StockInfoViewModel(private val tradeLogRepository: TradeLogRepository) : V
     private var bTimerIdle = true
     private var timerInterval:Long = 30000
 
-    private var stockCode = "KMD"
+    private var stockCode = ""
 
     private var bInitilized = false
 
@@ -62,7 +63,7 @@ class StockInfoViewModel(private val tradeLogRepository: TradeLogRepository) : V
             }
 
             //initial for TradeLogActivity
-            initTradeLogActivity(stockCode)
+            //initTradeLogActivity(stockCode)
 
             //initial for StockInfoActivity
             _stockCurrentTradeInfo.postValue(
@@ -84,35 +85,31 @@ class StockInfoViewModel(private val tradeLogRepository: TradeLogRepository) : V
         }
     }
 
-
-    fun resetTimer()= viewModelScope.launch(Dispatchers.IO) {
-        //TODO
-    }
-
     //get data from web and store data into database periodically.
     private fun setTimerWithStockCode(){
-        //if(stockCode == "") return
+        if(stockCode == "") return
         timer.scheduleAtFixedRate(
             object : TimerTask(){
                 override fun run() {
                     CoroutineScope(viewModelJob).launch {
                         //store data to database
                         tradeLogRepository.storeTradeInfoFromWebToDBByStockCode(stockCode)
-
-                        //for SelectedListActivity, it seems not necessary.
-                        //updateSelectedStockListByUserID(userName)
+                        delay(100)
 
                         //for StockInfoActivity
                         _stockCurrentTradeInfo.postValue(tradeLogRepository.getCurrentTradeInfoByStockCode(stockCode))
                         _askBidLog.postValue(tradeLogRepository.getAskBidListByStockCode(stockCode))
 
-
-                        //for TradeLogActivity
-                        // _tradeLogList.postValue(tradeLogRepository.diffList)
-                        //tradeLogRepository.diffList = emptyList()
-                        val todayTradeList = tradeLogRepository.getTodayTradeLog(stockCode).reversed()
-                        _tradeLogList.postValue(todayTradeList)
-                        _entrySet.postValue(tradeLogRepository.copyTradeLogListToEntrySet(todayTradeList))
+                        //for SelectedListActivity, store data of all selected stocks.
+                        selectedStockCodeList.forEach { newStockCode ->
+                            if (newStockCode == stockCode) {
+                                //timer has get this one.
+                            } else {
+                                //store data of all selected stocks
+                                tradeLogRepository.storeTradeInfoFromWebToDBByStockCode(stockCode)
+                                delay(100)
+                            }
+                        }
                     }
                 }
             },0,timerInterval
@@ -125,16 +122,16 @@ class StockInfoViewModel(private val tradeLogRepository: TradeLogRepository) : V
     }
 
     //add one item
-    fun addNewTradeLog(tradeLog: TradeLog){
-        val temp = mutableListOf<TradeLog>()
-        temp.add(tradeLog)
-        _tradeLogList.postValue(temp)
-    }
+//    fun addNewTradeLog(tradeLog: TradeLog){
+//        val temp = mutableListOf<TradeLog>()
+//        temp.add(tradeLog)
+//        _tradeLogList.postValue(temp)
+//    }
 
     //add a collection of items
-    fun addNewTradeLog(tradeLogList:List<TradeLog>){
-        _tradeLogList.postValue(tradeLogList)
-    }
+//    fun addNewTradeLog(tradeLogList:List<TradeLog>){
+//        _tradeLogList.postValue(tradeLogList)
+//    }
 
     //for StockInfoActivity ---------------begin
     fun insertUserStock(stockCode: String) = viewModelScope.launch(Dispatchers.IO) {
@@ -161,8 +158,15 @@ class StockInfoViewModel(private val tradeLogRepository: TradeLogRepository) : V
         val stockCurrentTradeInfoList = mutableListOf<StockCurrentTradeInfo>()
         val stockCodeList =  tradeLogRepository.selectStockCodeByUserID(userName)
         stockCodeList.forEach { newStockCode ->
+//            if(!bTimerIdle && newStockCode == stockCode) {
+//                //timer has get this one.
+//            }else{
+//                //store data of all selected stocks
+//                tradeLogRepository.storeTradeInfoFromWebToDBByStockCode(stockCode)
+//                delay(100)
+//            }
             val currentTradeInfo = tradeLogRepository.getCurrentTradeInfoByStockCode(newStockCode)?:return@forEach
-            delay(500) //website will block your IP address if the frequency of request is too high.
+            delay(200) //website will block your IP address if the frequency of request is too high.
             stockCurrentTradeInfoList.add(currentTradeInfo)
         }
         _stockCurrentTradeInfoList.postValue(stockCurrentTradeInfoList)
@@ -187,12 +191,12 @@ class StockInfoViewModel(private val tradeLogRepository: TradeLogRepository) : V
             _stockCurrentTradeInfoList.postValue(stockCurrentTradeInfoList)
     }
 
-    fun initTradeLogActivity(stockCode: String) = viewModelScope.launch(Dispatchers.IO) {
-        val todayTradeList = tradeLogRepository.getTodayTradeLog(stockCode).reversed()
-        _tradeLogList.postValue(todayTradeList)
-
-        _entrySet.postValue(tradeLogRepository.copyTradeLogListToEntrySet(todayTradeList))
-    }
+//    fun initTradeLogActivity(stockCode: String) = viewModelScope.launch(Dispatchers.IO) {
+//        val todayTradeList = tradeLogRepository.getTodayTradeLog(stockCode).reversed()
+//        _tradeLogList.postValue(todayTradeList)
+//
+//        _entrySet.postValue(tradeLogRepository.copyTradeLogListToEntrySet(todayTradeList))
+//    }
 
     fun initConstVariable() = viewModelScope.launch(Dispatchers.IO) {
         //get UserName
@@ -219,6 +223,8 @@ class StockInfoViewModel(private val tradeLogRepository: TradeLogRepository) : V
         _stockCurrentTradeInfoList.postValue(mutableListOf<StockCurrentTradeInfo>())
         if (userName != "UserID")
             tradeLogRepository.setNetWortConfidential(userName, password)
+
+        selectedStockCodeList =  tradeLogRepository.selectStockCodeByUserID(userName)
     }
 
 }

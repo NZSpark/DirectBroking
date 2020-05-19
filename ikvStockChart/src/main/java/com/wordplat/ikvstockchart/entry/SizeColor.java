@@ -213,7 +213,10 @@ public class SizeColor {
 
     private float timeLineSize = 2f; // 分时线大小
     private int timeLineColor = 0xff82b1ff; // 分时线颜色
-    private int timeLineMaxCount = 240; // 分时图 entry 最多个数。注：此值与 entrySet 里的 entries.size() 意义不同，这里指 X 轴上最多能容纳多少个 entry
+
+    //for NZX, 7 hours a day for trading. so it should be 7*60 = 420.
+    //private int timeLineMaxCount = 240; // 分时图 entry 最多个数。注：此值与 entrySet 里的 entries.size() 意义不同，这里指 X 轴上最多能容纳多少个 entry
+    private int timeLineMaxCount = 420; // 分时图 entry 最多个数。注：此值与 entrySet 里的 entries.size() 意义不同，这里指 X 轴上最多能容纳多少个 entry
 
     public float getTimeLineSize() {
         return timeLineSize;

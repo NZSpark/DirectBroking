@@ -213,7 +213,6 @@ class StockInfoActivity : AppCompatActivity() {
         ivRefresh.setOnClickListener {
             //QuickFillStockPriceTable()
             Toast.makeText(this,stockCode+ " will be refreshed automatically!", Toast.LENGTH_LONG).show()
-            stockInfoViewModel.resetTimer()
         }
 
 //        btRefresh.setOnClickListener {

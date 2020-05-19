@@ -38,20 +38,28 @@ class StockInfoAdapter internal constructor(
 
     override fun onBindViewHolder(holder: StockInfoViewHolder, position: Int) {
         askBidLog?.let {
-            holder.tvBidQuantity.text = askBidLog!!.bidList[position].quantity
-            holder.tvBidOrderNumber.text = askBidLog!!.bidList[position].orderNumber
-            holder.tvBidPrice.text = askBidLog!!.bidList[position].price
-            holder.tvAskQuantity.text = askBidLog!!.askList[position].quantity
-            holder.tvAskOrderNumber.text = askBidLog!!.askList[position].orderNumber
-            holder.tvAskPrice.text = askBidLog!!.askList[position].price
-            holder.tvTradePrice.text = askBidLog!!.tradeList[position].price
-            holder.tvTradeVolume.text = askBidLog!!.tradeList[position].tradeVolume
-            holder.tvTradeTime.text = askBidLog!!.tradeList[position].tradeTime
-            holder.tvTradeCondition.text = askBidLog!!.tradeList[position].tradeCondition
+            if(position < askBidLog!!.bidList.size ) {
+                holder.tvBidQuantity.text = askBidLog!!.bidList[position].quantity
+                holder.tvBidOrderNumber.text = askBidLog!!.bidList[position].orderNumber
+                holder.tvBidPrice.text = askBidLog!!.bidList[position].price
+            }
+
+            if(position < askBidLog!!.askList.size ) {
+                holder.tvAskQuantity.text = askBidLog!!.askList[position].quantity
+                holder.tvAskOrderNumber.text = askBidLog!!.askList[position].orderNumber
+                holder.tvAskPrice.text = askBidLog!!.askList[position].price
+            }
+
+            if(position < askBidLog!!.tradeList.size ) {
+                holder.tvTradePrice.text = askBidLog!!.tradeList[position].price
+                holder.tvTradeVolume.text = askBidLog!!.tradeList[position].tradeVolume
+                holder.tvTradeTime.text = askBidLog!!.tradeList[position].tradeTime
+                holder.tvTradeCondition.text = askBidLog!!.tradeList[position].tradeCondition
+            }
         }
     }
 
-    override fun getItemCount(): Int = 15
+    override fun getItemCount(): Int = askBidLog?.askList?.size ?:0
 
     internal fun setAskBidLog(askBidLog:AskBidLog) {
         this.askBidLog = askBidLog
