@@ -4,7 +4,7 @@ Implemented the most important features of the website: http://directbroking.co.
 Full features are developed:
 * Show the stock trade information/depth data in one page.
 * Show stocks' rank by value, change.
-* Show candle chart of a stock.
+* Show candle chart of a stock. (data from NZX, https://www.nzx.com)
 * Place buy/sell orders, cancle orders.
 * Withdraw money.
 
