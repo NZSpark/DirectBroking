@@ -174,19 +174,19 @@ class TradeLogRepository(private val dbDao: DBrokerDAO, private val dbWeb: Direc
         if(currentAskBidLog != null )
             insertAskBidLog(currentAskBidLog)
 
-        if( lastTradeLogList.size == 0 ){
+//        if( lastTradeLogList.size == 0 ){
             //initilize list from database, since select with desc order, so reversed() isn't needed.
             lastTradeLogList = dbDao.selectTop15TradeLog(stockCode)
             lastTradeLogList.forEach(){
                 it.id = 0
                 it.tradeTime = it.tradeTime.substring(it.tradeTime.lastIndexOf(" ") + 1)
             }
-        }
+//        }
 
         if(currentTradeLogList.size == 0) return
 
         diffList = diffTwoTradeLogList(lastTradeLogList,currentTradeLogList)
-        lastTradeLogList = currentTradeLogList
+//        lastTradeLogList = currentTradeLogList
         if(diffList.size > 0) {
 //            println(lastTradeLogList)
 //            println(currentTradeLogList)

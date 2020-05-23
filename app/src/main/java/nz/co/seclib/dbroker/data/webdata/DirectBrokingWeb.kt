@@ -217,6 +217,7 @@ class DirectBrokingWeb {
             // * __VIEWSTATE, __EVENTVALIDATION should be extracted from web page.
             //------------------------------------------------------------
             var request = Request.Builder()
+                .addHeader("User-Agent","Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.5 Safari/605.1.15")
                 .url(url)
                 .build()
 
@@ -247,6 +248,7 @@ class DirectBrokingWeb {
                 .build()
 
             request = Request.Builder()
+                .addHeader("User-Agent","Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.5 Safari/605.1.15")
                 .url(url)
                 .post(formBody)
                 .build()
@@ -254,7 +256,8 @@ class DirectBrokingWeb {
             okClient.newCall(request).execute().use {
                 if (!it.isSuccessful){
                     it.body?.close()
-                    throw  IOException("Unexpected code $it")
+                    //throw  IOException("Unexpected code $it")
+                    return
                 }
                 val body = it.body?.string()
                 mCurrentState.viewState = getValueByTag(body, "__VIEWSTATE")
@@ -355,6 +358,7 @@ class DirectBrokingWeb {
             // * __VIEWSTATE, __EVENTVALIDATION should be extracted from web page.
             //------------------------------------------------------------
             var request = Request.Builder()
+                .addHeader("User-Agent","Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.5 Safari/605.1.15")
                 .url(url)
                 .build()
 
@@ -385,6 +389,7 @@ class DirectBrokingWeb {
                 .build()
 
             request = Request.Builder()
+                .addHeader("User-Agent","Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.5 Safari/605.1.15")
                 .url(url)
                 .addHeader("Connection","close")
                 .post(formBody)
@@ -416,6 +421,7 @@ class DirectBrokingWeb {
                 .build()
 
             request = Request.Builder()
+                .addHeader("User-Agent","Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.5 Safari/605.1.15")
                 .url(url)
                 .post(formBody)
                 .build()
@@ -423,7 +429,8 @@ class DirectBrokingWeb {
             okClient.newCall(request).execute().use {
                 if (!it.isSuccessful){
                     it.body?.close()
-                    throw  IOException("Unexpected code $it")
+                    //throw  IOException("Unexpected code $it")
+                    return
                 }
                 val body = it.body?.string()
                 viewState = getValueByTag(body, "__VIEWSTATE")
@@ -449,6 +456,7 @@ class DirectBrokingWeb {
                 .build()
 
             request = Request.Builder()
+                .addHeader("User-Agent","Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.5 Safari/605.1.15")
                 .url(url)
                 .post(formBody)
                 .build()
@@ -456,7 +464,8 @@ class DirectBrokingWeb {
             okClient.newCall(request).execute().use {
                 if (!it.isSuccessful){
                     it.body?.close()
-                    throw  IOException("Unexpected code $it")
+                    //throw  IOException("Unexpected code $it")
+                    return
                 }
                 val body = it.body?.string()
                 mCurrentState.viewState = getValueByTag(body, "__VIEWSTATE")
@@ -488,6 +497,7 @@ class DirectBrokingWeb {
 
         fun run(){
             var request = Request.Builder()
+                .addHeader("User-Agent","Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.5 Safari/605.1.15")
                 .url(url)
                 .build()
 
@@ -515,6 +525,7 @@ class DirectBrokingWeb {
                 .build()
 
             request = Request.Builder()
+                .addHeader("User-Agent","Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.5 Safari/605.1.15")
                 .url(url)
                 .post(formBody)
                 .build()
@@ -522,7 +533,8 @@ class DirectBrokingWeb {
             okClient.newCall(request).execute().use {
                 if (!it.isSuccessful){
                     it.body?.close()
-                    throw  IOException("Unexpected code $it")
+                    //throw  IOException("Unexpected code $it")
+                    return
                 }
                 val body = it.body?.string()
                 mCurrentState.viewState = getValueByTag(body, "__VIEWSTATE")
@@ -565,6 +577,7 @@ class DirectBrokingWeb {
                 .build()
 
             val request = Request.Builder()
+                .addHeader("User-Agent","Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.5 Safari/605.1.15")
                 .url(url)
                 .post(formBody)
                 .build()
@@ -572,7 +585,8 @@ class DirectBrokingWeb {
             okClient.newCall(request).execute().use {
                 if (!it.isSuccessful){
                     it.body?.close()
-                    throw  IOException("Unexpected code $it")
+                    //throw  IOException("Unexpected code $it")
+                    return
                 }
                 val body = it.body?.string()
                 mCurrentState.viewState = getValueByTag(body, "__VIEWSTATE")
@@ -617,6 +631,7 @@ class DirectBrokingWeb {
                 .build()
 
             val request = Request.Builder()
+                .addHeader("User-Agent","Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.5 Safari/605.1.15")
                 .url(url)
                 .post(formBody)
                 .build()
@@ -676,6 +691,7 @@ class DirectBrokingWeb {
                 .build()
 
             val request = Request.Builder()
+                .addHeader("User-Agent","Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.5 Safari/605.1.15")
                 .url(url)
                 .post(formBody)
                 .build()
@@ -683,7 +699,8 @@ class DirectBrokingWeb {
             okClient.newCall(request).execute().use {
                 if (!it.isSuccessful){
                     it.body?.close()
-                    throw  IOException("Unexpected code $it")
+                    //throw  IOException("Unexpected code $it")
+                    return
                 }
                 val body = it.body?.string()
                 mCurrentState.viewState = getValueByTag(body, "__VIEWSTATE")
@@ -724,6 +741,7 @@ class DirectBrokingWeb {
                 .build()
 
             val request = Request.Builder()
+                .addHeader("User-Agent","Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.5 Safari/605.1.15")
                 .url(url)
                 .post(formBody)
                 .build()
@@ -756,6 +774,7 @@ class DirectBrokingWeb {
                 "https://www.directbroking.co.nz/DirectTrade/dynamic/quote.aspx?qqsc=" + stockCode + "&qqe=NZSE"
 
             val request = Request.Builder()
+                .addHeader("User-Agent","Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.5 Safari/605.1.15")
                 .url(url)
                 .build()
 
@@ -790,6 +809,7 @@ class DirectBrokingWeb {
                 "https://www.directbroking.co.nz/DirectTrade/dynamic/quote.aspx?qqsc=" + stockCode + "&qqe=NZSE"
 
             val request = Request.Builder()
+                .addHeader("User-Agent","Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.5 Safari/605.1.15")
                 .url(url)
                 .build()
 
@@ -822,13 +842,15 @@ class DirectBrokingWeb {
 
         fun run(){
             val request = Request.Builder()
+                .addHeader("User-Agent","Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.5 Safari/605.1.15")
                 .url(url)
                 .build()
 
             okClient.newCall(request).execute().use {
                 if (!it.isSuccessful){
                     it.body?.close()
-                    throw  IOException("Unexpected code $it")
+                    //throw  IOException("Unexpected code $it")
+                    return
                 }
                 webPage = it.body?.string().toString()
                 it.body?.close()
@@ -859,6 +881,7 @@ class DirectBrokingWeb {
 
             //Step 1: get page state.
             var request = Request.Builder()
+                .addHeader("User-Agent","Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.5 Safari/605.1.15")
                 .url(url)
                 .build()
 
@@ -886,6 +909,7 @@ class DirectBrokingWeb {
                 .build()
 
             request = Request.Builder()
+                .addHeader("User-Agent","Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.5 Safari/605.1.15")
                 .url(url)
                 .post(formBody)
                 .build()
@@ -911,6 +935,7 @@ class DirectBrokingWeb {
                 .build()
 
             request = Request.Builder()
+                .addHeader("User-Agent","Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.5 Safari/605.1.15")
                 .url(url)
                 .post(formBody)
                 .build()
@@ -949,6 +974,7 @@ class DirectBrokingWeb {
 
             //Step 1: get page state.
             var request = Request.Builder()
+                .addHeader("User-Agent","Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.5 Safari/605.1.15")
                 .url(url)
                 .build()
 
@@ -975,6 +1001,7 @@ class DirectBrokingWeb {
                 .build()
 
             request = Request.Builder()
+                .addHeader("User-Agent","Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.5 Safari/605.1.15")
                 .url(url)
                 .post(formBody)
                 .build()
@@ -1004,6 +1031,7 @@ class DirectBrokingWeb {
                 .build()
 
             request = Request.Builder()
+                .addHeader("User-Agent","Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.5 Safari/605.1.15")
                 .url(url)
                 .post(formBody)
                 .build()
@@ -1030,6 +1058,7 @@ class DirectBrokingWeb {
                 .build()
 
             request = Request.Builder()
+                .addHeader("User-Agent","Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.5 Safari/605.1.15")
                 .url(url)
                 .post(formBody)
                 .build()

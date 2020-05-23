@@ -128,7 +128,9 @@ class NZXRepository(private val dbDao: DBrokerDAO, private val nzxWeb: NZXWeb) {
     }
 
     //entrySetType: TimeLine, KLine
-    fun convertTradeLogListToEntrySetByInterval(inTradeLogList: List<TradeLog>, minsInterval :Int, entrySetType:String) : EntrySet{
+    //fun convertTradeLogListToEntrySetByInterval(inTradeLogList: List<TradeLog>, minsInterval :Int, entrySetType:String) : EntrySet{
+    fun convertTradeLogListToEntrySetByInterval(inTradeLogList: List<TradeLog>, minsInterval :Int) : EntrySet{
+
         val tradeLogList = inTradeLogList.reversed()
         val entrySet = EntrySet()
         val startTime = SimpleDateFormat("HH:mm", Locale.getDefault()).parse("09:45")
@@ -172,17 +174,17 @@ class NZXRepository(private val dbDao: DBrokerDAO, private val nzxWeb: NZXWeb) {
                 iPos++
             }
 
-            if(entrySetType == "TimeLine") {
-                entrySet.addEntry(
-                    Entry(
-                        close_price,
-                        volume,
-                        date
-                    )
-                )
-            }
-
-            if(entrySetType == "KLine") {
+//            if(entrySetType == "TimeLine") {
+//                entrySet.addEntry(
+//                    Entry(
+//                        close_price,
+//                        volume,
+//                        date
+//                    )
+//                )
+//            }
+//
+//            if(entrySetType == "KLine") {
                 entrySet.addEntry(
                     Entry(
                         open_price,
@@ -193,7 +195,7 @@ class NZXRepository(private val dbDao: DBrokerDAO, private val nzxWeb: NZXWeb) {
                         date
                     )
                 )
-            }
+//            }
 
 
             currentTimeIntervalStart = currentTimeIntervalEnd
@@ -228,6 +230,9 @@ class NZXRepository(private val dbDao: DBrokerDAO, private val nzxWeb: NZXWeb) {
             newEntrySet.addEntry(
                 Entry(
                     firstPrice,
+                    firstPrice,
+                    firstPrice,
+                    firstPrice,
                     0,
                     currentTime.formatTo("HH:mm")
                 )
@@ -260,6 +265,9 @@ class NZXRepository(private val dbDao: DBrokerDAO, private val nzxWeb: NZXWeb) {
                 while(currentTime < firstTime){
                     newEntrySet.addEntry(
                         Entry(
+                            oldEntrySet.entryList[iPos].close,
+                            oldEntrySet.entryList[iPos].close,
+                            oldEntrySet.entryList[iPos].close,
                             oldEntrySet.entryList[iPos].close,
                             0,
                             currentTime.formatTo("HH:mm")

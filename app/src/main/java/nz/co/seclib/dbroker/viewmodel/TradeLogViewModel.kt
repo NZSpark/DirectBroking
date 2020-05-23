@@ -102,7 +102,8 @@ class TradeLogViewModel(private val nzxRepository: NZXRepository) : ViewModel(){
 
         //_entrySet.postValue(nzxRepository.getIntraDayEntrySetByStockCode(stockCode))
         //_entrySet.postValue(nzxRepository.getTodayIntraEntrySet(stockCode))
-        _entrySet.postValue(nzxRepository.expandEntrySet( nzxRepository.convertTradeLogListToEntrySetByInterval(todayTradeList,1,"TimeLine")))
+        //_entrySet.postValue(nzxRepository.expandEntrySet( nzxRepository.convertTradeLogListToEntrySetByInterval(todayTradeList,1,"TimeLine")))
+        _entrySet.postValue(nzxRepository.expandEntrySet( nzxRepository.convertTradeLogListToEntrySetByInterval(todayTradeList,1)))
     }
 
 }

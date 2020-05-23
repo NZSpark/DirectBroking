@@ -319,7 +319,11 @@ public class StockChartNZXActivity extends BaseActivity {
 //        for (int i = loadStartPos ; i < loadEndPos ; i++) {
 //            set.addEntry(entrySet.getEntryList().get(i));
 //        }
-        for (int i = entrySet.getEntryList().size() - 500 ; i < entrySet.getEntryList().size() ; i++) {
+
+        int iStart  = entrySet.getEntryList().size() - 500;
+        if(iStart < 0) iStart = 0;
+
+        for (int i = iStart ; i < entrySet.getEntryList().size() ; i++) {
             set.addEntry(entrySet.getEntryList().get(i));
         }
         return set;

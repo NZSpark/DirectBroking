@@ -46,6 +46,7 @@ class NZXWeb {
         var jsonString = ""
         var url = "https://www.nzx.com/statistics/"+stockCode+"/interday.json"
         var request = Request.Builder()
+                .addHeader("User-Agent","Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.5 Safari/605.1.15")
             .url(url)
             .build()
 
@@ -90,6 +91,7 @@ class NZXWeb {
         var jsonString = ""
         var url = "https://www.nzx.com/statistics/"+stockCode+"/intraday.json?market_id=NZSX"
         var request = Request.Builder()
+                .addHeader("User-Agent","Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.5 Safari/605.1.15")
             .url(url)
             .build()
 
@@ -127,6 +129,7 @@ class NZXWeb {
     fun getWebPageByUrl(url:String) : String {
         var webPage = ""
         var request = Request.Builder()
+                .addHeader("User-Agent","Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.5 Safari/605.1.15")
             .url(url)
             .build()
 

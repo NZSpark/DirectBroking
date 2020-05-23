@@ -6,35 +6,52 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.wordplat.ikvstockchart.InteractiveKLineView
-        android:id="@+id/klTrade"
-        android:layout_width="408dp"
-        android:layout_height="227dp"
+
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="399dp"
+        android:layout_height="381dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-    </com.wordplat.ikvstockchart.InteractiveKLineView>
+        <com.wordplat.ikvstockchart.InteractiveKLineView
+            android:id="@+id/klTradeLogTimeLine"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+        </com.wordplat.ikvstockchart.InteractiveKLineView>
+
+        <TextView
+            android:id="@+id/tvTradeLogVolume"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left|bottom"
+            android:text=""
+            android:textColor="#282b34"
+            android:textSize="10sp" />
+    </FrameLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvTradeLog"
-        android:layout_width="379dp"
-        android:layout_height="286dp"
-        android:layout_marginTop="32dp"
+        android:layout_width="387dp"
+        android:layout_height="186dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.666"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/klTrade"
+        app:layout_constraintTop_toBottomOf="@+id/frameLayout"
         tools:listitem="@layout/recyclerview_tradelog" />
 
     <ScrollView
-        android:layout_width="365dp"
-        android:layout_height="168dp"
+        android:layout_width="388dp"
+        android:layout_height="146dp"
+        android:layout_marginTop="6dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.6"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rvTradeLog"
-        app:layout_constraintVertical_bias="0.426">
+        app:layout_constraintVertical_bias="0.122">
 
         <TextView
             android:id="@+id/tvCompanyAnalysis"

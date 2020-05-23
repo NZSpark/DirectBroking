@@ -63,7 +63,7 @@ class OrderInfoAdapter  internal constructor(
         holder.tvOrderStatus.text = orderInfo.status
         holder.tvOrderRefNumber.text = orderInfo.refCode
         holder.tvOrderOptionsNumber.text = orderInfo.orderID
-        if(holder.tvOrderStatus.text.toString().indexOf("Cancel") > 0){
+        if(holder.tvOrderStatus.text.toString().indexOf("Cancel") != -1){
             holder.ivCancelOrder.visibility = View.INVISIBLE
         }else {
             holder.ivCancelOrder.visibility = View.VISIBLE

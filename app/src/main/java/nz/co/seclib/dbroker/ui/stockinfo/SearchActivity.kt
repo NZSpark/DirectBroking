@@ -8,6 +8,9 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import kotlinx.android.synthetic.main.activity_stock_charts_old.*
+import kotlinx.android.synthetic.main.activity_stock_charts_old.btShowStockInfo
+import kotlinx.android.synthetic.main.activity_stock_charts_old.spStockCodeList
+import kotlinx.android.synthetic.main.activity_stock_search.*
 import nz.co.seclib.dbroker.R
 import nz.co.seclib.dbroker.ui.sysinfo.SystemConfigActivity
 import nz.co.seclib.dbroker.utils.MyApplication
@@ -23,9 +26,19 @@ class SearchActivity: AppCompatActivity() {
         spStockCodeList.setSelection(spAdepter.getPosition("KMD"))
 
         btShowStockInfo.setOnClickListener {
-            val intent = Intent(this,StockInfoActivity::class.java).apply {
-                putExtra("STOCKCODE",spStockCodeList.selectedItem.toString())
+            var intent:Intent? = null
+
+            if(rbSearchDirctBroking.isChecked) {
+                intent = Intent(this, StockInfoActivity::class.java).apply {
+                    putExtra("STOCKCODE", spStockCodeList.selectedItem.toString())
+                }
             }
+            if(rbSearchNZX.isChecked) {
+                intent = Intent(this, StockChartNZXActivity::class.java).apply {
+                    putExtra("STOCKCODE", spStockCodeList.selectedItem.toString())
+                }
+            }
+
             startActivity(intent)
         }
     }

@@ -12,31 +12,12 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/tiPortfolio"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="user_info_portfolio" />
-
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/tiOrders"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/user_info_orders" />
-
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/tiAccount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/user_info_account" />
-    </com.google.android.material.tabs.TabLayout>
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/vpUserInfo"
-        android:layout_width="381dp"
-        android:layout_height="638dp"
+        android:layout_width="391dp"
+        android:layout_height="554dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.476"

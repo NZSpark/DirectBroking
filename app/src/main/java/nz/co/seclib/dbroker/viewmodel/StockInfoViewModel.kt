@@ -94,20 +94,21 @@ class StockInfoViewModel(private val tradeLogRepository: TradeLogRepository) : V
                     CoroutineScope(viewModelJob).launch {
                         //store data to database
                         tradeLogRepository.storeTradeInfoFromWebToDBByStockCode(stockCode)
-                        delay(100)
+                        delay(1000)
 
                         //for StockInfoActivity
                         _stockCurrentTradeInfo.postValue(tradeLogRepository.getCurrentTradeInfoByStockCode(stockCode))
+                        delay(1000)
                         _askBidLog.postValue(tradeLogRepository.getAskBidListByStockCode(stockCode))
-
+                        delay(1000)
                         //for SelectedListActivity, store data of all selected stocks.
                         selectedStockCodeList.forEach { newStockCode ->
                             if (newStockCode == stockCode) {
                                 //timer has get this one.
                             } else {
                                 //store data of all selected stocks
-                                tradeLogRepository.storeTradeInfoFromWebToDBByStockCode(stockCode)
-                                delay(100)
+                                tradeLogRepository.storeTradeInfoFromWebToDBByStockCode(newStockCode)
+                                delay(500)
                             }
                         }
                     }

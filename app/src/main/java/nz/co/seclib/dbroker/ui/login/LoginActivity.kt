@@ -3,21 +3,22 @@ package nz.co.seclib.dbroker.ui.login
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import androidx.annotation.StringRes
-import androidx.appcompat.app.AppCompatActivity
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
-import android.widget.*
+import android.widget.Button
+import android.widget.EditText
+import android.widget.ProgressBar
+import android.widget.Toast
+import androidx.annotation.StringRes
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import kotlinx.android.synthetic.main.activity_login.*
-
 import nz.co.seclib.dbroker.R
+import nz.co.seclib.dbroker.ui.stockinfo.SearchActivity
 import nz.co.seclib.dbroker.ui.stockinfo.SelectedStocksActivity
-import nz.co.seclib.dbroker.ui.stockinfo.StockInfoActivity
-import nz.co.seclib.dbroker.ui.stockinfo.TradeLogActivity
 import nz.co.seclib.dbroker.viewmodel.LoginViewModel
 import nz.co.seclib.dbroker.viewmodel.LoginViewModelFactory
 
@@ -29,6 +30,8 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_login)
+
+        //supportActionBar!!.setTitle("DBroker (Direct Broking Mobile Client)")
 
         val username = findViewById<EditText>(R.id.username)
         val password = findViewById<EditText>(R.id.password)
@@ -74,6 +77,10 @@ class LoginActivity : AppCompatActivity() {
             loading.visibility = View.GONE
             if (loginResult.error != null) {
                 showLoginFailed(loginResult.error)
+                val intent = Intent(this, SearchActivity::class.java).apply {
+                    putExtra("STOCKCODE","KMD")
+                }
+                startActivity(intent)
             }
             if (loginResult.success != null) {
                 if(cbSaveToDB.isChecked)

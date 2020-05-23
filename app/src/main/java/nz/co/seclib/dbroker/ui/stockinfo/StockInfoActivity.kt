@@ -51,8 +51,6 @@ class StockInfoActivity : AppCompatActivity() {
 
         stockCode = intent.getStringExtra("STOCKCODE") ?:""
 
-
-
         val picasso = Picasso.Builder(this).build()
         //stockInfoViewModel = DBrokerViewModelFactory(this.application).create(DBrokerViewModel::class.java)
         stockInfoViewModel = StockInfoViewModelFactory(
@@ -422,7 +420,9 @@ class StockInfoActivity : AppCompatActivity() {
                 startActivity(intent)
             }
             R.id.menu_stock_trade_info -> {
-                val intent = Intent(this, TradeLogActivity::class.java)
+                val intent = Intent(this, TradeLogActivity::class.java).apply {
+                    putExtra("STOCKCODE", stockCode)
+                }
                 startActivity(intent)
             }
             R.id.menu_system_parameters -> {

@@ -105,6 +105,9 @@ public class TimeLineDrawing implements IDrawing {
                     lineBuffer[i * 4 + 0] : lineBuffer[lastEntryIndex * 4 + 2];
             highlightPoint[1] = highlightIndex < lastEntryIndex ?
                     lineBuffer[i * 4 + 1] : lineBuffer[lastEntryIndex * 4 + 3];
+
+            //for show volume text.
+            entrySet.setHighlightIndex(i);
         }
 
         canvas.restore();
