@@ -12,7 +12,7 @@ android {
         minSdkVersion 27
         targetSdkVersion 29
         versionCode 1
-        versionName "1.0"
+        versionName '1.0'
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -33,6 +33,12 @@ android {
 
     packagingOptions {
         exclude 'META-INF/atomicfu.kotlin_module'
+        exclude('/lib/*' + '*')
+        exclude('/lib/armeabi/*' + '*')
+        exclude('/lib/mips/*' + '*')
+        exclude('/lib/mips64/*' + '*')
+        exclude('/lib/x86_64/*' + '*')
+        exclude('/lib/x86/*' + '*')
     }
 }
 

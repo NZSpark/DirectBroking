@@ -2,8 +2,8 @@ package nz.co.seclib.dbroker.utils
 
 import android.content.res.AssetManager
 import android.content.res.Resources
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
+//import org.slf4j.Logger
+//import org.slf4j.LoggerFactory
 import java.io.FileInputStream
 import java.io.InputStream
 import java.security.KeyStore
@@ -30,7 +30,8 @@ class SSLContextAndTrustManagers(
 }
 
 object SslUtils {
-    private val LOG: Logger = LoggerFactory.getLogger(SslUtils::class.java.simpleName)
+    //private val LOG: Logger = LoggerFactory.getLogger(SslUtils::class.java.simpleName)
+    /*
     fun getSslContextForCertificateFile(fileName: String): SSLContextAndTrustManagers {
         return try {
             val keyStore = getKeyStore(fileName)
@@ -51,6 +52,8 @@ object SslUtils {
         }
     }
 
+     */
+
     private fun getKeyStore(fileName: String): KeyStore? {
         var keyStore: KeyStore? = null
         try {
@@ -61,10 +64,10 @@ object SslUtils {
             val ca: Certificate
             try {
                 ca = cf.generateCertificate(inputStream)
-                LOG.debug(
-                    "ca={}",
-                    (ca as X509Certificate).subjectDN
-                )
+//                LOG.debug(
+//                    "ca={}",
+//                    (ca as X509Certificate).subjectDN
+//                )
             } finally {
                 inputStream.close()
             }
@@ -73,7 +76,7 @@ object SslUtils {
             keyStore.load(null, null)
             keyStore.setCertificateEntry("ca", ca)
         } catch (e: Exception) {
-            LOG.error("Error during getting keystore", e)
+//            LOG.error("Error during getting keystore", e)
         }
         return keyStore
     }

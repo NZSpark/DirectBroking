@@ -2,6 +2,7 @@
     <string name="app_name">DBroker</string>
     <string name="author">spark.zheng@outlook.com</string>
     <string name="description">Direct Broking Mobile Client</string>
+    <string name="privacy">Privacy Policy</string>
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_username">Account Number</string>
@@ -44,10 +45,8 @@
     <string name="due_date">Due Date : </string>
     <string name="status">Status : </string>
 
-    <string name="direct_broking" >DirectBroking</string>
+    <string name="direct_broking">DirectBroking</string>
     <string name="nzx">NZX</string>
-
-
 
 
     <!-- TODO: Remove or change this placeholder text -->

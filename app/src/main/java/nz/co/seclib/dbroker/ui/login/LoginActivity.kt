@@ -159,6 +159,11 @@ class LoginActivity : AppCompatActivity() {
             }
             startActivity(intent)
         }
+
+        tvLoginPrivacy.setOnClickListener {
+            val intent = Intent(this, PrivacyPolicy::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun updateUiWithUser(model: LoggedInUserView) {

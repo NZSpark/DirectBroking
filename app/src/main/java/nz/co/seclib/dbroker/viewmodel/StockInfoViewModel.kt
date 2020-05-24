@@ -24,8 +24,8 @@ class StockInfoViewModel(private val tradeLogRepository: TradeLogRepository) : V
     //for SelectedStocksActivity --begin
     private var userName = "UserID"
     private var password = ""
-    private val _stockCurrentTradeInfoList = MutableLiveData<MutableList<StockCurrentTradeInfo>>()
-    val stockCurrentTradeInfoList : LiveData<List<StockCurrentTradeInfo>> = _stockCurrentTradeInfoList as LiveData<List<StockCurrentTradeInfo>>
+    private val _stockCurrentTradeInfoList = MutableLiveData<List<StockCurrentTradeInfo>>()
+    val stockCurrentTradeInfoList : LiveData<List<StockCurrentTradeInfo>> = _stockCurrentTradeInfoList
     private var selectedStockCodeList = listOf<String>()
     //for SelectedStocksActivity --end
 
