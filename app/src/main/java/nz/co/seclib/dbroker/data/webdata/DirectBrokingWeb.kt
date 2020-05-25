@@ -997,7 +997,7 @@ class DirectBrokingWeb {
                 .add("__VIEWSTATEGENERATOR", viewStateGenerator)
                 .add("__EVENTVALIDATION", viewValidation)
                 .add("ddlExchangeGroupCode", "NZ")
-                .add("txtSecurityCode", "KMD")
+                .add("txtSecurityCode", stockCode)
                 .build()
 
             request = Request.Builder()

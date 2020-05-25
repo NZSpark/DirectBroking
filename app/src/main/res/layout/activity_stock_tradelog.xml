@@ -7,57 +7,60 @@
     android:layout_height="match_parent">
 
 
-    <FrameLayout
-        android:id="@+id/frameLayout"
-        android:layout_width="399dp"
-        android:layout_height="381dp"
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <com.wordplat.ikvstockchart.InteractiveKLineView
-            android:id="@+id/klTradeLogTimeLine"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:id="@+id/frameLayout"
+                android:layout_width="match_parent"
+                android:layout_height="406dp">
+
+                <com.wordplat.ikvstockchart.InteractiveKLineView
+                    android:id="@+id/klTradeLogTimeLine"
+                    android:layout_width="match_parent"
+                    android:layout_height="396dp">
 
 
-        </com.wordplat.ikvstockchart.InteractiveKLineView>
+                </com.wordplat.ikvstockchart.InteractiveKLineView>
 
-        <TextView
-            android:id="@+id/tvTradeLogVolume"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="left|bottom"
-            android:text=""
-            android:textColor="#282b34"
-            android:textSize="10sp" />
-    </FrameLayout>
+                <TextView
+                    android:id="@+id/tvTradeLogVolume"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textColor="#282b34"
+                    android:textSize="10sp" />
+            </FrameLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvTradeLog"
-        android:layout_width="387dp"
-        android:layout_height="186dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.666"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/frameLayout"
-        tools:listitem="@layout/recyclerview_tradelog" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvTradeLog"
+                android:layout_width="match_parent"
+                android:layout_height="240dp"
+                tools:listitem="@layout/recyclerview_tradelog" >
 
-    <ScrollView
-        android:layout_width="388dp"
-        android:layout_height="146dp"
-        android:layout_marginTop="6dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rvTradeLog"
-        app:layout_constraintVertical_bias="0.122">
+            </androidx.recyclerview.widget.RecyclerView>
 
-        <TextView
-            android:id="@+id/tvCompanyAnalysis"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            <TextView
+                android:id="@+id/tvCompanyAnalysis"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+
+        </LinearLayout>
+
     </ScrollView>
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

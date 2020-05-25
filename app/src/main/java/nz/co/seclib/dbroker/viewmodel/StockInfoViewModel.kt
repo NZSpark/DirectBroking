@@ -1,5 +1,6 @@
 package nz.co.seclib.dbroker.viewmodel
 
+import android.app.Application
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.*
@@ -11,6 +12,8 @@ import java.time.format.DateTimeFormatter
 import java.util.*
 import com.wordplat.ikvstockchart.entry.*
 import nz.co.seclib.dbroker.data.database.*
+import nz.co.seclib.dbroker.R
+import nz.co.seclib.dbroker.utils.MyApplication
 
 @RequiresApi(Build.VERSION_CODES.O)
 class StockInfoViewModel(private val tradeLogRepository: TradeLogRepository) : ViewModel(){
@@ -93,8 +96,8 @@ class StockInfoViewModel(private val tradeLogRepository: TradeLogRepository) : V
                 override fun run() {
                     CoroutineScope(viewModelJob).launch {
                         //store data to database
-                        tradeLogRepository.storeTradeInfoFromWebToDBByStockCode(stockCode)
-                        delay(1000)
+//                        tradeLogRepository.storeTradeInfoFromWebToDBByStockCode(stockCode)
+//                        delay(1000)
 
                         //for StockInfoActivity
                         _stockCurrentTradeInfo.postValue(tradeLogRepository.getCurrentTradeInfoByStockCode(stockCode))
@@ -177,8 +180,8 @@ class StockInfoViewModel(private val tradeLogRepository: TradeLogRepository) : V
     //market open time. from "09:45" to "17:15".
     private fun checkMarketTradingTime():Boolean{
         val currentTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH:mm"))
-        val openTime = "09:45"
-        val closeTime = "17:15"
+        val openTime = MyApplication.instance.applicationContext.getString ( R.string.market_start_time)
+        val closeTime = MyApplication.instance.applicationContext.getString ( R.string.market_end_time)
         if(currentTime > openTime && currentTime < closeTime)
             return true
         return false

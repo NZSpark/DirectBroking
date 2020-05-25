@@ -131,8 +131,8 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvStockList"
-        android:layout_width="378dp"
-        android:layout_height="502dp"
+        android:layout_width="369dp"
+        android:layout_height="520dp"
         android:layout_marginLeft="50dp"
         android:layout_marginRight="20dp"
         app:layout_constraintEnd_toEndOf="parent"

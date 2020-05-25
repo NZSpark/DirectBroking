@@ -1,25 +1,21 @@
 package nz.co.seclib.dbroker.ui.stockinfo
 
 import android.content.Intent
-import android.graphics.Typeface
 import android.os.Build
 import android.os.Bundle
-import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.TableLayout
-import android.widget.TableRow
-import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.squareup.picasso.Picasso
 import com.wordplat.easydivider.RecyclerViewCornerRadius
 import com.wordplat.easydivider.RecyclerViewLinearDivider
+import com.wordplat.ikvstockchart.compat.ViewUtils
 import kotlinx.android.synthetic.main.activity_stock_info.*
 import nz.co.seclib.dbroker.R
 import nz.co.seclib.dbroker.adapter.StockInfoAdapter
@@ -29,6 +25,7 @@ import nz.co.seclib.dbroker.data.webdata.CurrentState
 import nz.co.seclib.dbroker.data.webdata.TradesTable
 import nz.co.seclib.dbroker.ui.sysinfo.SystemConfigActivity
 import nz.co.seclib.dbroker.utils.AppUtils
+import nz.co.seclib.dbroker.utils.MyApplication
 import nz.co.seclib.dbroker.viewmodel.StockInfoViewModel
 import nz.co.seclib.dbroker.viewmodel.StockInfoViewModelFactory
 
@@ -51,7 +48,6 @@ class StockInfoActivity : AppCompatActivity() {
 
         stockCode = intent.getStringExtra("STOCKCODE") ?:""
 
-        val picasso = Picasso.Builder(this).build()
         //stockInfoViewModel = DBrokerViewModelFactory(this.application).create(DBrokerViewModel::class.java)
         stockInfoViewModel = StockInfoViewModelFactory(
             this.application
@@ -71,7 +67,10 @@ class StockInfoActivity : AppCompatActivity() {
 
             if(stockCurrentTradeInfo.pictLink != "") {
                 //println(stockTradeInfo.pictLink)
-                picasso.load(stockCurrentTradeInfo.pictLink).into(imageView)
+//                val picasso = Picasso.Builder(MyApplication.instance.applicationContext).loggingEnabled(true).build()
+//                picasso.load(stockCurrentTradeInfo.pictLink).into(ivDBSimplePriceImage)
+                Glide.with(this).load(stockCurrentTradeInfo.pictLink).into(ivDBSimplePriceImage)
+
             }
         })
 
@@ -183,7 +182,7 @@ class StockInfoActivity : AppCompatActivity() {
              */
         })
 
-        imageView.setOnClickListener {
+        ivDBSimplePriceImage.setOnClickListener {
             val intent = Intent(this, StockChartNZXActivity::class.java).apply {
                 putExtra("STOCKCODE",stockCode)
             }

@@ -284,7 +284,7 @@ public class StockChartNZXActivity extends BaseActivity {
                 PerformenceAnalyser.getInstance().addWatcher();
 
                 NZXWeb nzxWeb = new NZXWeb();
-                if(stockCode == "") {
+                if(stockCode.equals("")) {
                     entrySet = nzxWeb.copyInterDayInfoToChartEntrySet(nzxWeb.convertJsonToInterdayInfoList(nzxWeb.getInterDayJson("KMD")));
                 }else{
                     entrySet = nzxWeb.copyInterDayInfoToChartEntrySet(nzxWeb.convertJsonToInterdayInfoList(nzxWeb.getInterDayJson(stockCode)));
@@ -293,7 +293,8 @@ public class StockChartNZXActivity extends BaseActivity {
                 //entrySet = StockDataTest.parseKLineLongData(kLineData);
                 PerformenceAnalyser.getInstance().addWatcher();
 
-                entrySet.computeStockIndex();
+                if(entrySet.getEntryList().size()>0)
+                    entrySet.computeStockIndex();
 
                 PerformenceAnalyser.getInstance().addWatcher();
 

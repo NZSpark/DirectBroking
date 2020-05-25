@@ -18,6 +18,8 @@ class NZXWeb {
 
 
     fun convertJsonToInterdayInfoList(inString:String) : List<NZXInterDayInfo> {
+        if(inString.length < 100 ) //should be sizeOf(NZXInterDayInfo)
+            return emptyList()
         val gson = Gson()
         val type: Type = object : TypeToken<List<NZXInterDayInfo>?>() {}.getType()
         return gson.fromJson(inString, type)

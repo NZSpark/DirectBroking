@@ -64,9 +64,10 @@ class TradeLogRepository(private val dbDao: DBrokerDAO, private val dbWeb: Direc
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    fun getAskBidListByStockCode(stockCode: String): AskBidLog?{
+    suspend fun getAskBidListByStockCode(stockCode: String): AskBidLog?{
         //if(currentAskBidLog == null)
-        getTradeInfoFromWebByStockCode(stockCode)
+        //getTradeInfoFromWebByStockCode(stockCode)
+        storeTradeInfoFromWebToDBByStockCode(stockCode)
         return currentAskBidLog
     }
 

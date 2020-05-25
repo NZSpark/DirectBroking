@@ -5,20 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="388dp"
-        android:layout_height="191dp"
-        android:layout_marginStart="20dp"
-        android:adjustViewBounds="true"
-        android:contentDescription="@string/image_description"
-        android:scaleType="fitXY"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
-         />
-
     <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="390dp"
@@ -158,6 +144,19 @@
 
     </LinearLayout>
 
+    <ImageView
+        android:id="@+id/ivDBSimplePriceImage"
+        android:layout_width="369dp"
+        android:layout_height="148dp"
+        android:layout_marginStart="20dp"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/image_description"
+        android:scaleType="fitXY"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvStockBidAskTradeInfo"
         android:layout_width="377dp"
@@ -166,7 +165,7 @@
         android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/ivDBSimplePriceImage" />
 
     <ImageView
         android:id="@+id/ivAdd"

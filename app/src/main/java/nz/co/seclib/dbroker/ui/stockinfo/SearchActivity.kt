@@ -2,11 +2,13 @@ package nz.co.seclib.dbroker.ui.stockinfo
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import com.wordplat.ikvstockchart.compat.ViewUtils
 import kotlinx.android.synthetic.main.activity_stock_charts_old.*
 import kotlinx.android.synthetic.main.activity_stock_charts_old.btShowStockInfo
 import kotlinx.android.synthetic.main.activity_stock_charts_old.spStockCodeList
@@ -14,32 +16,75 @@ import kotlinx.android.synthetic.main.activity_stock_search.*
 import nz.co.seclib.dbroker.R
 import nz.co.seclib.dbroker.ui.sysinfo.SystemConfigActivity
 import nz.co.seclib.dbroker.utils.MyApplication
+import java.text.AttributedCharacterIterator
 
 class SearchActivity: AppCompatActivity() {
    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_stock_search)
+       super.onCreate(savedInstanceState)
+       setContentView(R.layout.activity_stock_search)
 
 
-        val spAdepter = ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item, MyApplication.stockMarketInfo.stockCodeList)
-        spStockCodeList.adapter = spAdepter
-        spStockCodeList.setSelection(spAdepter.getPosition("KMD"))
+       val spAdepter = ArrayAdapter(
+           this,
+           R.layout.support_simple_spinner_dropdown_item,
+           MyApplication.stockMarketInfo.stockCodeList
+       )
+       spStockCodeList.adapter = spAdepter
+       spStockCodeList.setSelection(spAdepter.getPosition("KMD"))
 
-        btShowStockInfo.setOnClickListener {
-            var intent:Intent? = null
+       btShowStockInfo.setOnClickListener {
+           var intent: Intent? = null
 
-            if(rbSearchDirctBroking.isChecked) {
-                intent = Intent(this, StockInfoActivity::class.java).apply {
-                    putExtra("STOCKCODE", spStockCodeList.selectedItem.toString())
+           if (rbSearchDirctBroking.isChecked) {
+               intent = Intent(this, StockInfoActivity::class.java).apply {
+                   putExtra("STOCKCODE", spStockCodeList.selectedItem.toString())
+               }
+           }
+           if (rbSearchNZX.isChecked) {
+               intent = Intent(this, StockChartNZXActivity::class.java).apply {
+                   putExtra("STOCKCODE", spStockCodeList.selectedItem.toString())
+               }
+           }
+
+           startActivity(intent)
+       }
+
+       addStockList()
+
+    }
+
+    fun addStockList(){
+        var iPos = 0
+        while (iPos < MyApplication.stockMarketInfo.stockCodeList.size){
+            val tRow = TableRow(this)
+
+
+            for (i in 0..5) {
+                val tvStock = TextView(tRow.context)
+                tvStock.text = MyApplication.stockMarketInfo.stockCodeList[iPos]
+                tvStock.width = ViewUtils.dpTopx(tvStock.context,60f)
+                tvStock.gravity = Gravity.RIGHT
+                tvStock.setOnClickListener {
+                    var intent: Intent? = null
+
+                    if (rbSearchDirctBroking.isChecked) {
+                        intent = Intent(this, StockInfoActivity::class.java).apply {
+                            putExtra("STOCKCODE", tvStock.text.toString())
+                        }
+                    }
+                    if (rbSearchNZX.isChecked) {
+                        intent = Intent(this, StockChartNZXActivity::class.java).apply {
+                            putExtra("STOCKCODE", tvStock.text.toString())
+                        }
+                    }
+
+                    startActivity(intent)
                 }
+                tRow.addView(tvStock)
+                iPos++
+                if(iPos == MyApplication.stockMarketInfo.stockCodeList.size) break
             }
-            if(rbSearchNZX.isChecked) {
-                intent = Intent(this, StockChartNZXActivity::class.java).apply {
-                    putExtra("STOCKCODE", spStockCodeList.selectedItem.toString())
-                }
-            }
-
-            startActivity(intent)
+            tlSearchStockList.addView(tRow)
         }
     }
 
