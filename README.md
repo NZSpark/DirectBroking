@@ -5,7 +5,7 @@ Full features are developed:
 * Show the stock trade information/depth data in one page.
 * Show stocks' rank by value, change.
 * Show candle chart of a stock. (data from NZX, https://www.nzx.com)
-* Place buy/sell orders, cancle orders.
+* Place buy/sell orders, cancel orders.
 * Withdraw money.
 
 User should have an valid trading account applied from Direct Broking.
