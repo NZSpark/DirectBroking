@@ -16,6 +16,7 @@ Any risk/lost using this software is accountable by yourself.
 
 IDE: AndroidStudio 3.6.3
 Language: Kotlin 1.3.61
+Download: [DBroker-release-1.0.apk](https://github.com/NZSpark/DBroker/blob/master/app/release/DBroker-release-1.0.apk)
 
 
 
