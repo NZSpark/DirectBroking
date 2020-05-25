@@ -14,6 +14,8 @@ App uses account number and password as the authentication credential to communi
 Direct Broking has access restriction policy, please obey it. 
 Any risk/lost using this software is accountable by yourself.
 
+IDE: AndroidStudio 3.6.3
+Language: Kotlin 1.3.61
 
 
 
