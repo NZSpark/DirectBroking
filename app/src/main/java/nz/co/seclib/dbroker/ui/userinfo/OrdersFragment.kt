@@ -87,7 +87,7 @@ class OrdersFragment : Fragment() {
         }
 
         llDate.visibility = View.INVISIBLE
-        rbUntilDate.setOnCheckedChangeListener { buttonView, isChecked ->
+        rbUntilDate.setOnCheckedChangeListener { _, isChecked ->
             if(isChecked)
                 llDate.visibility = View.VISIBLE
             else

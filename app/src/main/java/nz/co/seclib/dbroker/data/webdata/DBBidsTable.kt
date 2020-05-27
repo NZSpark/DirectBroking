@@ -208,7 +208,7 @@ class BidsRow{
                 val iValueEndPos = sTemp.indexOf("<",iValueStartPos)
                 if(iValueEndPos>0) {
                     price = sTemp.substring(iValueStartPos, iValueEndPos).trim()
-                    sTemp = sTemp.substring(iValueEndPos)
+                    //sTemp = sTemp.substring(iValueEndPos)
                 }
             }
 

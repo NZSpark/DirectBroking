@@ -4,6 +4,7 @@ import nz.co.seclib.dbroker.data.database.StockCurrentTradeInfo
 import okhttp3.*
 import java.io.IOException
 import java.net.CookieManager
+import javax.net.ssl.HostnameVerifier
 
 
 class CurrentState  (var stockCode: String, var cookieJar:JavaNetCookieJar, var viewState:String, var viewValidation:String, var viewStateGenerator:String, var webPage:String) {
@@ -20,7 +21,10 @@ class DirectBrokingWeb {
     
     //handle cookies by default with lib com.squareup.okhttp3:okhttp-urlconnection:4.2.2.
     private val cookieJar = JavaNetCookieJar(CookieManager())
-    private val okClient = OkHttpClient.Builder().cookieJar(cookieJar).build()
+    private val okClient = OkHttpClient.Builder()
+        .hostnameVerifier(HostnameVerifier { hostname, _ -> hostname == "www.directbroking.co.nz" })
+        .cookieJar(cookieJar)
+        .build()
     
     private var mCurrentState = CurrentState(
         "KMD",
@@ -289,65 +293,12 @@ class DirectBrokingWeb {
         //to set followRedirects option to false to turn off automatic fetch function.
         //val okClient2 = OkHttpClient.Builder().followRedirects(false).build()
 
-
-        /*  --- for Burp Suite -----
-        //"BuipSuiteCAcert.cer" is certificate provided by Burp Suite and it should be placed into assets folder.
-        //Maybe it is not necessary since all certificates are trusted.
-        val sslContextAndTrustManagers = SslUtils.getSslContextForCertificateFile("BuipSuiteCAcert.cer")
-        val trustAllCerts=
-            object : X509TrustManager  {
-                @Throws(CertificateException::class)
-                override fun checkClientTrusted(
-                    chain: Array<out X509Certificate>?,
-                    authType: String?
-                ) {
-                    return
-                }
-
-                @Throws(CertificateException::class)
-                override fun checkServerTrusted(
-                    chain: Array<out X509Certificate>?,
-                    authType: String?
-                ) {
-                    return
-                }
-
-                override fun getAcceptedIssuers(): Array<X509Certificate> {
-                    return arrayOf()
-                }
-
-            }
-
-        okClient = OkHttpClient.Builder().cookieJar(cookieJar)
-            .sslSocketFactory(sslContextAndTrustManagers.sslContext.socketFactory, trustAllCerts)
-            .hostnameVerifier(HostnameVerifier { hostname, session -> true })
-            .connectionSpecs(
-                Arrays.asList(
-                    ConnectionSpec.MODERN_TLS,
-                    ConnectionSpec.COMPATIBLE_TLS
-                )
-            )
-            .build()
-
-        val okClient2 = OkHttpClient.Builder()
-            .followRedirects(false)
-            .sslSocketFactory(sslContextAndTrustManagers.sslContext.socketFactory, trustAllCerts)
-            .hostnameVerifier(HostnameVerifier { hostname, session -> true })
-            .connectionSpecs(
-                Arrays.asList(
-                    ConnectionSpec.MODERN_TLS,
-                    ConnectionSpec.COMPATIBLE_TLS
-                )
-            )
-            .build()
-        */
-
         var url = "https://www.directbroking.co.nz/DirectTrade/dynamic/signon.aspx"
 
         var viewState = ""
         var viewValidation = ""
         var viewStateGenerator = "" //__VIEWSTATEGENERATOR
-        var depthWebPage: String = ""
+        //var depthWebPage: String = ""
 
         fun run() {
             //stage 1: get login page state
@@ -504,7 +455,8 @@ class DirectBrokingWeb {
             okClient.newCall(request).execute().use {
                 if (!it.isSuccessful) {
                     it.body?.close()
-                    throw  IOException("Unexpected code $it")
+                    //throw  IOException("Unexpected code $it")
+                    return
                 }
                 val body = it.body?.string()
                 viewState = getValueByTag(body, "__VIEWSTATE")
@@ -660,7 +612,7 @@ class DirectBrokingWeb {
 
     //convert web page to class.
     fun getStockInfo(stockCode: String): StockCurrentTradeInfo? {
-        var stockCurrentTradeInfo : StockCurrentTradeInfo? = null
+        var stockCurrentTradeInfo: StockCurrentTradeInfo?
 
         val stockInfoPage = getStockInfoPage(stockCode)
 

@@ -9,13 +9,16 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import java.lang.reflect.Type
 import java.net.CookieManager
+import javax.net.ssl.HostnameVerifier
+import javax.net.ssl.SSLSession
 
 class NZXWeb {
     //handle cookies by default with lib com.squareup.okhttp3:okhttp-urlconnection:4.2.2.
     private val cookieJar = JavaNetCookieJar(CookieManager())
-    private val okClient = OkHttpClient.Builder().cookieJar(cookieJar).build()
-
-
+    private val okClient = OkHttpClient.Builder()
+        .hostnameVerifier(HostnameVerifier { hostname, _ -> hostname == "www.nzx.com" })
+        .cookieJar(cookieJar)
+        .build()
 
     fun convertJsonToInterdayInfoList(inString:String) : List<NZXInterDayInfo> {
         if(inString.length < 100 ) //should be sizeOf(NZXInterDayInfo)
@@ -110,7 +113,7 @@ class NZXWeb {
     }
 
     fun extractAnalysisFromWebPage(webPage:String):String{
-        var analysis = ""
+        var analysis: String
 
         val startString = "<div class=\"small-12 medium-9 columns content\">"
         val endString = "<section>"

@@ -14,7 +14,6 @@ import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import kotlinx.android.synthetic.main.activity_login.*
 import nz.co.seclib.dbroker.R
 import nz.co.seclib.dbroker.ui.stockinfo.SearchActivity
@@ -52,11 +51,7 @@ class LoginActivity : AppCompatActivity() {
 
 
 
-        loginViewModel = ViewModelProviders.of(this,
-            LoginViewModelFactory(this.application)
-        )
-                .get(LoginViewModel::class.java)
-
+        loginViewModel = LoginViewModelFactory(this.application).create(LoginViewModel::class.java)
         loginViewModel.loginFormState.observe(this@LoginActivity, Observer {
             val loginState = it ?: return@Observer
 
@@ -85,7 +80,9 @@ class LoginActivity : AppCompatActivity() {
             if (loginResult.success != null) {
                 if(cbSaveToDB.isChecked)
                     loginViewModel.saveNetworkConfidential(username.text.toString(), password.text.toString())
-                updateUiWithUser(loginResult.success)
+
+                val intent = Intent(this, SelectedStocksActivity::class.java)
+                startActivity(intent)
             }
             setResult(Activity.RESULT_OK)
 
@@ -164,21 +161,6 @@ class LoginActivity : AppCompatActivity() {
             val intent = Intent(this, PrivacyPolicy::class.java)
             startActivity(intent)
         }
-    }
-
-    private fun updateUiWithUser(model: LoggedInUserView) {
-//        val welcome = getString(R.string.welcome)
-//        val displayName = model.displayName
-//        // TODO : initiate successful logged in experience
-//        Toast.makeText(
-//                applicationContext,
-//                "$welcome $displayName",
-//                Toast.LENGTH_LONG
-//        ).show()
-        //val intent = Intent(this, SystemConfigActivity::class.java)
-        val intent = Intent(this, SelectedStocksActivity::class.java)
-        //val intent = Intent(this, UserInfoManagerActivity::class.java)
-        startActivity(intent)
     }
 
     private fun showLoginFailed(@StringRes errorString: Int) {

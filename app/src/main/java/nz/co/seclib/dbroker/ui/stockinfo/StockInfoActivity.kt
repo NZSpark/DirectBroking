@@ -12,7 +12,6 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
-import com.squareup.picasso.Picasso
 import com.wordplat.easydivider.RecyclerViewCornerRadius
 import com.wordplat.easydivider.RecyclerViewLinearDivider
 import com.wordplat.ikvstockchart.compat.ViewUtils

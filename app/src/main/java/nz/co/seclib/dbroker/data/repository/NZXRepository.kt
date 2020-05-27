@@ -136,7 +136,7 @@ class NZXRepository(private val dbDao: DBrokerDAO, private val nzxWeb: NZXWeb) {
         val startTime = SimpleDateFormat("HH:mm", Locale.getDefault()).parse("09:45")
         val endTime = SimpleDateFormat("HH:mm", Locale.getDefault()).parse("17:15")
         var currentTimeIntervalStart = startTime
-        var currentTimeIntervalEnd = startTime
+        var currentTimeIntervalEnd: Date
 
         var iPos = 0
 

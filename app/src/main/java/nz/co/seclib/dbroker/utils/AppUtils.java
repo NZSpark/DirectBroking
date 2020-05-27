@@ -12,17 +12,6 @@ import android.net.NetworkInfo;
 
 public class AppUtils {
 
-    /**
-     * 网络是否连接
-     *
-     * @param context
-     */
-    public static boolean isConnected(Context context) {
-        ConnectivityManager connManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo netInfo = connManager.getActiveNetworkInfo();
-
-        return netInfo == null || !netInfo.isConnected() ? false : true;
-    }
 
     /**
      * 根据手机的分辨率从 dp 的单位 转成为 px(像素)

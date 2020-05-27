@@ -11,8 +11,8 @@ android {
         applicationId "nz.co.seclib.dbroker"
         minSdkVersion 24
         targetSdkVersion 29
-        versionCode 1
-        versionName '1.0'
+        versionCode 6
+        versionName '6.0'
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -59,12 +59,9 @@ dependencies {
 
     implementation 'com.squareup.okhttp3:okhttp:4.7.2'
     implementation 'com.squareup.okhttp3:okhttp-urlconnection:4.7.2'
-    implementation 'com.squareup.picasso:picasso:2.71828'
-    //implementation 'com.squareup.picasso:picasso:2.5.2'
-    implementation 'com.github.bumptech.glide:glide:4.9.0'
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
 
     implementation "androidx.security:security-crypto:1.0.0-rc02"
-
     implementation 'com.google.code.gson:gson:2.8.6'
 
 
@@ -97,12 +94,9 @@ dependencies {
     implementation project(path: ':EasyDivider')
 
     implementation 'com.readystatesoftware.systembartint:systembartint:1.0.4'
-    implementation 'org.xutils:xutils:3.3.36'
+    //implementation 'org.xutils:xutils:3.3.36'
     implementation 'com.android.support:multidex:1.0.3'
     implementation 'com.chanven.lib:cptr:1.1.0'
     //implementation 'com.alibaba:fastjson:1.1.46.android'
-
     implementation 'org.jsoup:jsoup:1.13.1'
-
-
 }

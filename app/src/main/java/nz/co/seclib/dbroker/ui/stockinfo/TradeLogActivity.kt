@@ -122,9 +122,9 @@ class TradeLogActivity : AppCompatActivity() , CoroutineScope by MainScope(){
                 val layoutManager = rvTradeLog.layoutManager as LinearLayoutManager
                 layoutManager.scrollToPosition(adapter.itemCount - newPos) //recycler is reversed order.
 
-                tvTradeLogVolume.text = "Volume : " + entry.volume.toString()
+                tvTradeLogVolume.text = "Volume : " + entry.volume.toString() + " Price: " + entry.close.toString()
                 if ( x  > klTradeLogTimeLine.render.viewRect.right / 2 )
-                    tvTradeLogVolume.x =  x - tvTradeLogVolume.text.toString().length * tvTradeLogVolume.textSize  //left side of highlight line
+                    tvTradeLogVolume.x =  x - tvTradeLogVolume.text.toString().length * tvTradeLogVolume.textSize / 2  //left side of highlight line
                 else
                     tvTradeLogVolume.x = x //right side of highlight line
                 tvTradeLogVolume.y = klTradeLogTimeLine.render.viewRect.top

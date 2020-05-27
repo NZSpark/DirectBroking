@@ -6,7 +6,7 @@ import android.content.Context;
 import androidx.multidex.MultiDex;
 import nz.co.seclib.dbroker.BuildConfig;
 
-import org.xutils.x;
+//import org.xutils.x;
 
 /**
  * Created by afon on 2017/1/24.
@@ -28,7 +28,7 @@ public class App extends Application {
             AppRuntimeInitializer.INSTANCE.initRuntime(this);
         }
 
-        x.Ext.init(this);
+        //x.Ext.init(this);
     }
 
     private String getCurProcessName(Context context) {

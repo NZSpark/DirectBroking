@@ -82,7 +82,7 @@ class OrderInfoAdapter  internal constructor(
                     .setNegativeButton("Cancel",null)
                     .setPositiveButton(
                         "Confirm",
-                        DialogInterface.OnClickListener { dialog, which ->
+                        DialogInterface.OnClickListener { _, _ ->
                         userInfoViewModel.actionRequestUrl(url)
                     })
                 val alert: AlertDialog = builder.create()
