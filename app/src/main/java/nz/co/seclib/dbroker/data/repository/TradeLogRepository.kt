@@ -9,6 +9,7 @@ import nz.co.seclib.dbroker.data.webdata.*
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
+
 class TradeLogRepository(private val dbDao: DBrokerDAO, private val dbWeb: DirectBrokingWeb) {
 
     private var mCurrentState: CurrentState? = null

@@ -34,8 +34,8 @@ class UserInfoManagerActivity : AppCompatActivity() {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 when (tab.position) {
                     0 -> userInfoViewModel.getPortfolioList()
-                    1 -> userInfoViewModel.getOrderInfoList()
-                    2 -> userInfoViewModel.getTradeRecordsList()
+                    1 -> userInfoViewModel.getTradeRecordsList()
+                    2 -> userInfoViewModel.getOrderInfoList()
                     3 -> userInfoViewModel.getAccountInfoList()
                 }
                 return
@@ -52,13 +52,13 @@ class UserInfoManagerActivity : AppCompatActivity() {
 
 
     private inner class UserInfoPagerAdapter(private val context: Context, fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
-        private val listOfTitles = arrayOf(R.string.user_info_portfolio, R.string.user_info_orders,R.string.user_info_trade_records,R.string.user_info_account)
+        private val listOfTitles = arrayOf(R.string.user_info_portfolio,R.string.user_info_trade_records, R.string.user_info_orders,R.string.user_info_account)
 
         override fun getItem(position: Int): Fragment {
             when(position){
                 0 -> return PortfolioFragment.newInstance()
-                1 -> return OrdersFragment.newInstance()
-                2 -> return TradeRecordsFragment.newInstance()
+                1 -> return TradeRecordsFragment.newInstance()
+                2 -> return OrdersFragment.newInstance()
                 3 -> return AccountFragment.newInstance()
             }
             return PortfolioFragment.newInstance()

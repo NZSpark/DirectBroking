@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -37,9 +38,11 @@ class AccountFragment : Fragment() {
         })
 
         ivWithdraw.setOnClickListener {
+            if(etWithdrawAmount.text.toString() == "")
+                return@setOnClickListener
             val withdrawAmount = etWithdrawAmount.text.toString().toFloat()
             val accountBalance = tvAccountWithdrawalBalance.text.toString().replace(",","").toFloat()
-            if(withdrawAmount < 0 || withdrawAmount > accountBalance){
+            if(withdrawAmount <= 0 || withdrawAmount > accountBalance){
                 Toast.makeText(this.context,"Withdraw amount is wrong, please check it again!", Toast.LENGTH_LONG).show()
                 return@setOnClickListener
             }

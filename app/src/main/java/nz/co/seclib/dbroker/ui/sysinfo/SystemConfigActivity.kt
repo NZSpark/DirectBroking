@@ -37,8 +37,9 @@ class SystemConfigActivity : AppCompatActivity() , CoroutineScope by MainScope()
             etTimerInterval.setText(it)
         })
         systemConfigViewModel.timerEnable.observe(this, Observer {
-            etTimerEnable.setText(it)
+            cbTimerEnable.isChecked = it == "TRUE"
         })
+
         systemConfigViewModel.userName.observe(this, Observer {
             etUserName.setText(it)
         })
@@ -49,7 +50,10 @@ class SystemConfigActivity : AppCompatActivity() , CoroutineScope by MainScope()
 
         ivSave.setOnClickListener {
             systemConfigViewModel.saveTimerIntervalToDB(etTimerInterval.text.toString())
-            systemConfigViewModel.saveTimerEnableToDB(etTimerEnable.text.toString())
+            if(cbTimerEnable.isChecked)
+                systemConfigViewModel.saveTimerEnableToDB("TRUE")
+            else
+                systemConfigViewModel.saveTimerEnableToDB("FALSE")
             systemConfigViewModel.saveUserNameToDB(etUserName.text.toString())
             systemConfigViewModel.savePasswordToDB(AESEncryption.encrypt( etPassword.text.toString()).toString())
             Toast.makeText(this,"System properties are stored in database!", Toast.LENGTH_LONG).show()

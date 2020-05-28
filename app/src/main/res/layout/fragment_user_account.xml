@@ -8,29 +8,33 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvAccountInfo"
-        android:layout_width="408dp"
-        android:layout_height="422dp">
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
     </androidx.recyclerview.widget.RecyclerView>
 
     <LinearLayout
+        android:id="@+id/linearLayout3"
         android:layout_width="276dp"
         android:layout_height="50dp"
         android:layout_marginStart="150dp"
-        android:layout_marginTop="44dp"
         android:layout_marginEnd="150dp"
+        android:layout_marginBottom="124dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rvAccountInfo"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintStart_toStartOf="parent">
 
         <TextView
             android:id="@+id/textView11"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Withdraw Amount: " />
+            android:text="@string/user_info_account_withdraw" />
 
         <EditText
             android:id="@+id/etWithdrawAmount"
@@ -38,14 +42,14 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
-            android:inputType="number"
+            android:inputType="numberDecimal"
             android:text="0"
-            android:textAlignment="viewEnd" />
+            android:textAlignment="viewStart" />
 
         <ImageView
             android:id="@+id/ivWithdraw"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_marginTop="5dp"
             android:layout_weight="1"
             android:tooltipText="Withdraw"

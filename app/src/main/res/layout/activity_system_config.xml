@@ -19,28 +19,6 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/textView8"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Timer Interval : "
-                android:textAlignment="viewEnd" />
-
-            <EditText
-                android:id="@+id/etTimerInterval"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:text="30000" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
                 android:id="@+id/textView9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -78,6 +56,29 @@
                 android:ems="10"
                 android:inputType="textPersonName|textPassword" />
         </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Timer Interval : "
+                android:textAlignment="viewEnd" />
+
+            <EditText
+                android:id="@+id/etTimerInterval"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="30000" />
+        </TableRow>
+
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -90,14 +91,11 @@
                 android:text="TimerEnable : "
                 android:textAlignment="viewEnd" />
 
-            <EditText
-                android:id="@+id/etTimerEnable"
+            <CheckBox
+                android:id="@+id/cbTimerEnable"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:text="TRUE"/>
+                android:text="@string/system_info_enable" />
         </TableRow>
 
         <TableRow
