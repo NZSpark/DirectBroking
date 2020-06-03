@@ -1,4 +1,5 @@
-# DBroker, an Android App for the users of Direct Broking to trade stocks in New Zealand. 
+# DBroker (old version, and no update any more), an Android App for the users of Direct Broking to trade stocks in New Zealand. 
+
 Implemented the most important features of the website: http://directbroking.co.nz .
 
 Full features are developed:
@@ -17,11 +18,6 @@ Any risk/lost using this software is accountable by yourself.
 IDE: AndroidStudio 3.6.3
 Language: Kotlin 1.3.61
 Download: [DBroker-release.apk](https://github.com/NZSpark/DBroker/raw/master/app/release/DBroker-release-7.0.apk)
-
-https://play.google.com/store/apps/details?id=nz.co.seclib.dbroker
-
-
-
 
 ![Login](https://github.com/NZSpark/DBroker/blob/master/snapshot/Login.png)
 
