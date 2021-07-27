@@ -1,4 +1,4 @@
-# DBroker (old version, and no update any more), an Android App for the users of Direct Broking to trade stocks in New Zealand. 
+# DBroker, an Android App for the users of Direct Broking to trade stocks in New Zealand. 
 
 Implemented the most important features of the website: http://directbroking.co.nz .
 
