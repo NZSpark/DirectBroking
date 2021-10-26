@@ -17,19 +17,19 @@ Any risk/lost using this software is accountable by yourself.
 
 IDE: AndroidStudio 3.6.3
 Language: Kotlin 1.3.61
-Download: [DBroker-release.apk](https://github.com/NZSpark/DBroker/raw/master/app/release/DBroker-release-7.0.apk)
+Download: [DBroker-release.apk](https://github.com/NZSpark/DirectBroking/raw/master/app/release/DBroker-release-7.0.apk)
 
-![Login](https://github.com/NZSpark/DBroker/blob/master/snapshot/Login.png)
-
-
-![Selected Stocks](https://github.com/NZSpark/DBroker/blob/master/snapshot/SelectedStocksList.png)
+![Login](https://github.com/NZSpark/DirectBroking/blob/master/snapshot/Login.png)
 
 
-![Candle Chart](https://github.com/NZSpark/DBroker/blob/master/snapshot/StockCandleChart.png)
+![Selected Stocks](https://github.com/NZSpark/DirectBroking/blob/master/snapshot/SelectedStocksList.png)
 
 
-![Stock Depth Data](https://github.com/NZSpark/DBroker/blob/master/snapshot/StockInfoInOnePage.png)
+![Candle Chart](https://github.com/NZSpark/DirectBroking/blob/master/snapshot/StockCandleChart.png)
 
 
-![Place Buy/Sell Orders](https://github.com/NZSpark/DBroker/blob/master/snapshot/PlaceBuySellOrders.png)
+![Stock Depth Data](https://github.com/NZSpark/DirectBroking/blob/master/snapshot/StockInfoInOnePage.png)
+
+
+![Place Buy/Sell Orders](https://github.com/NZSpark/DirectBroking/blob/master/snapshot/PlaceBuySellOrders.png)
 
